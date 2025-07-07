@@ -108,7 +108,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
             <Grid size={{ xs: 12, md: 4 }} component="div">
               <Box sx={{ textAlign: 'center' }}>
                 <Avatar
-                  src="/1649716700283.jpg"
+                  src="1649716700283.jpg"
                   sx={{ 
                     width: { xs: 150, md: 200 }, 
                     height: { xs: 150, md: 200 }, 
