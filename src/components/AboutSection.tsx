@@ -1,29 +1,8 @@
-import { Container, Paper, Typography, Box, LinearProgress, Card, Grid, Chip } from '@mui/material';
+import { Container, Paper, Typography, Box, Card, Grid } from '@mui/material';
 import { Computer as ComputerIcon, CloudOutlined as CloudIcon, PhoneAndroid as MobileIcon, MenuBook as BookIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
-interface Skill {
-  name: string;
-  level: number;
-}
-
-interface AboutSectionProps {
-  skills?: Skill[];
-}
-
-export default function AboutSection({ skills = [] }: AboutSectionProps) {
-  const defaultSkills = [
-    { name: 'React', level: 90 },
-    { name: 'TypeScript', level: 85 },
-    { name: 'Node.js', level: 80 },
-    { name: 'Python', level: 75 },
-    { name: 'Material UI', level: 88 },
-    { name: 'Git', level: 82 },
-    { name: 'MongoDB', level: 70 },
-    { name: 'PostgreSQL', level: 75 }
-  ];
-
-  const skillsToShow = skills.length > 0 ? skills : defaultSkills;
+export default function AboutSection() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
@@ -187,7 +166,7 @@ export default function AboutSection({ skills = [] }: AboutSectionProps) {
               {[
                 { 
                   title: 'Frontend Development', 
-                  description: 'React, TypeScript, Material-UI, responsive design',
+                  description: 'Vite, TypeScript, Material-UI, Bootstrap, Next.js',
                   gradient: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
                   iconColor: '#667eea',
                   icon: 'computer'
@@ -223,7 +202,7 @@ export default function AboutSection({ skills = [] }: AboutSectionProps) {
                 return (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                   <motion.div
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 30, height: '100%' }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 1 + index * 0.2 }}
                     whileHover={{ scale: 1.05 }}

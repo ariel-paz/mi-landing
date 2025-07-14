@@ -42,44 +42,20 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
           </Typography>
         </Box>
         
-        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto' }}>
+        <Box sx={{ position: 'relative', maxWidth: 900, mx: 'auto' }}>
           {/* Timeline line mejorada */}
           <Box 
             sx={{ 
               position: 'absolute', 
               left: { xs: 20, md: '50%' }, 
-              top: 0, 
-              bottom: 0, 
-              width: 4, 
-              background: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)',
+              top: 60, 
+              bottom: 60, 
+              width: { xs: 4, md: 6 }, 
+              background: 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
               transform: { md: 'translateX(-50%)' },
-              borderRadius: 2,
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 12,
-                height: 12,
-                bgcolor: '#667eea',
-                borderRadius: '50%',
-                border: '3px solid white',
-                boxShadow: '0 0 0 4px rgba(102,126,234,0.2)'
-              },
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: 0,
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 12,
-                height: 12,
-                bgcolor: '#764ba2',
-                borderRadius: '50%',
-                border: '3px solid white',
-                boxShadow: '0 0 0 4px rgba(118,75,162,0.2)'
-              }
+              borderRadius: 3,
+              zIndex: 1,
+              boxShadow: '0 0 20px rgba(102,126,234,0.3)'
             }} 
           />
           
@@ -93,24 +69,39 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
               <Box 
                 sx={{ 
                   position: 'relative', 
-                  mb: 6,
-                  ml: { xs: 6, md: 0 }
+                  mb: { xs: 6, md: 10 },
+                  ml: { xs: 5, md: 0 }
                 }}
               >
                 {/* Timeline dot mejorado */}
                 <Box 
                   sx={{ 
                     position: 'absolute', 
-                    left: { xs: -32, md: '50%' }, 
-                    top: 20,
+                    left: { xs: -27, md: '50%' }, 
+                    top: { xs: 30, md: 60 },
                     transform: { md: 'translateX(-50%)' },
-                    width: 20, 
-                    height: 20, 
-                    background: `linear-gradient(45deg, ${index % 2 === 0 ? '#667eea' : '#764ba2'}, ${index % 2 === 0 ? '#764ba2' : '#f093fb'})`,
+                    width: { xs: 18, md: 24 }, 
+                    height: { xs: 18, md: 24 }, 
+                    background: `linear-gradient(45deg, ${
+                      index % 2 === 0 
+                        ? '#667eea, #764ba2' 
+                        : '#f093fb, #f5576c'
+                    })`,
                     borderRadius: '50%',
-                    border: '4px solid white',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                    zIndex: 2
+                    border: { xs: '3px solid white', md: '4px solid white' },
+                    boxShadow: `0 0 0 ${index % 2 === 0 ? '4px rgba(102,126,234,0.2)' : '4px rgba(240,147,251,0.2)'}, 0 4px 20px rgba(0,0,0,0.15)`,
+                    zIndex: 3,
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: { xs: 6, md: 8 },
+                      height: { xs: 6, md: 8 },
+                      background: 'white',
+                      borderRadius: '50%'
+                    }
                   }} 
                 />
                 
@@ -119,37 +110,73 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                   sx={{ 
                     ml: { md: index % 2 === 0 ? 0 : 'auto' },
                     mr: { md: index % 2 === 0 ? 'auto' : 0 },
-                    width: { md: '45%' },
-                    p: 4,
+                    width: { xs: '100%', md: '42%' },
+                    minHeight: { xs: 240, md: 320 },
+                    p: { xs: 2.5, md: 4 },
                     background: index % 2 === 0 
-                      ? 'linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%)'
-                      : 'linear-gradient(135deg, rgba(240,147,251,0.05) 0%, rgba(245,87,108,0.05) 100%)',
-                    border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}`,
+                      ? 'linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%)'
+                      : 'linear-gradient(135deg, rgba(240,147,251,0.08) 0%, rgba(245,87,108,0.08) 100%)',
+                    border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.15)' : 'rgba(240,147,251,0.15)'}`,
                     borderRadius: 4,
                     position: 'relative',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backdropFilter: 'blur(10px)',
+                    boxShadow: `0 8px 32px ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}`,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: `0 16px 48px ${index % 2 === 0 ? 'rgba(102,126,234,0.2)' : 'rgba(240,147,251,0.2)'}`,
+                      border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.3)' : 'rgba(240,147,251,0.3)'}`
+                    },
                     '&::before': {
                       content: '""',
                       position: 'absolute',
-                      top: 20,
-                      [index % 2 === 0 ? 'right' : 'left']: { xs: 'auto', md: -10 },
+                      top: { xs: 30, md: 60 },
+                      [index % 2 === 0 ? 'right' : 'left']: { xs: 'auto', md: -15 },
                       width: 0,
                       height: 0,
-                      borderTop: '10px solid transparent',
-                      borderBottom: '10px solid transparent',
-                      [index % 2 === 0 ? 'borderRight' : 'borderLeft']: { xs: 'none', md: `10px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}` },
+                      borderTop: '15px solid transparent',
+                      borderBottom: '15px solid transparent',
+                      [index % 2 === 0 ? 'borderRight' : 'borderLeft']: { 
+                        xs: 'none', 
+                        md: `15px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.15)' : 'rgba(240,147,251,0.15)'}` 
+                      },
                       display: { xs: 'none', md: 'block' }
                     }
                   }}
                 >
-                  <Stack spacing={2}>
-                    <Typography variant="h5" fontWeight={700} sx={{ color: index % 2 === 0 ? '#667eea' : '#f093fb' }}>
-                      {exp.title}
-                    </Typography>
-                    <Typography variant="h6" color="primary.main" fontWeight={600}>
-                      🏢 {exp.company}
-                    </Typography>
+                  <Stack spacing={{ xs: 2, md: 3 }} sx={{ height: '100%' }}>
+                    <Box>
+                      <Typography 
+                        variant="h4" 
+                        fontWeight={700} 
+                        sx={{ 
+                          color: index % 2 === 0 ? '#667eea' : '#f093fb',
+                          mb: 1,
+                          fontSize: { xs: '1.3rem', md: '1.8rem' }
+                        }}
+                      >
+                        {exp.title}
+                      </Typography>
+                      <Typography 
+                        variant="h6" 
+                        sx={{ 
+                          color: 'primary.main', 
+                          fontWeight: 600,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          fontSize: { xs: '1rem', md: '1.25rem' }
+                        }}
+                      >
+                        <WorkIcon sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
+                        {exp.company}
+                      </Typography>
+                    </Box>
+                    
                     <Chip 
-                      label={`📅 ${exp.period}`}
+                      label={exp.period}
                       size="medium" 
                       sx={{ 
                         alignSelf: 'flex-start',
@@ -157,13 +184,25 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                           ? 'linear-gradient(45deg, #667eea, #764ba2)'
                           : 'linear-gradient(45deg, #f093fb, #f5576c)',
                         color: 'white',
-                        fontWeight: 600,
-                        '& .MuiChip-label': { px: 2 }
+                        fontWeight: 700,
+                        fontSize: { xs: '0.8rem', md: '0.9rem' },
+                        height: { xs: 32, md: 36 },
+                        '& .MuiChip-label': { px: { xs: 2, md: 3 } }
                       }}
                     />
-                    <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.1rem' }}>
-                      {exp.description}
-                    </Typography>
+                    
+                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+                      <Typography 
+                        color="text.secondary" 
+                        sx={{ 
+                          lineHeight: 1.6, 
+                          fontSize: { xs: '0.95rem', md: '1.1rem' },
+                          fontWeight: 400
+                        }}
+                      >
+                        {exp.description}
+                      </Typography>
+                    </Box>
                   </Stack>
                 </Card>
               </Box>

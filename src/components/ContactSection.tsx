@@ -117,18 +117,22 @@ export default function ContactSection() {
           </Typography>
         </Box>
         
-        <Grid container spacing={6}>
-          <Grid size={{ xs: 12, md: 6 }} component="div">
+        <Grid container spacing={6} sx={{ alignItems: 'stretch' }}>
+          <Grid size={{ xs: 12, md: 6 }} component="div" sx={{ display: 'flex' }}>
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ width: '100%' }}
             >
               <Card 
                 elevation={0} 
                 sx={{ 
                   p: 5, 
                   height: '100%',
+                  minHeight: '600px',
+                  display: 'flex',
+                  flexDirection: 'column',
                   background: 'linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%)',
                   border: '2px solid rgba(102,126,234,0.1)',
                   borderRadius: 4,
@@ -256,17 +260,21 @@ export default function ContactSection() {
             </motion.div>
           </Grid>
           
-          <Grid size={{ xs: 12, md: 6 }} component="div">
+          <Grid size={{ xs: 12, md: 6 }} component="div" sx={{ display: 'flex' }}>
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
+              style={{ width: '100%' }}
             >
               <Card 
                 elevation={0} 
                 sx={{ 
                   p: 5, 
                   height: '100%',
+                  minHeight: '600px',
+                  display: 'flex',
+                  flexDirection: 'column',
                   background: 'linear-gradient(135deg, rgba(67,233,123,0.05) 0%, rgba(56,249,215,0.05) 100%)',
                   border: '2px solid rgba(67,233,123,0.1)',
                   borderRadius: 4,
@@ -285,8 +293,8 @@ export default function ContactSection() {
                   </Typography>
                 </Box>
                 
-                <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
-                  <Grid container spacing={3}>
+                <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off" sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                  <Grid container spacing={3} sx={{ flexGrow: 1 }}>
                     <Grid size={{ xs: 12, sm: 6 }} component="div">
                       <TextField 
                         fullWidth
@@ -363,20 +371,22 @@ export default function ContactSection() {
                         }}
                       />
                     </Grid>
-                    <Grid size={{ xs: 12 }} component="div">
+                    <Grid size={{ xs: 12 }} component="div" sx={{ flexGrow: 1 }}>
                       <TextField 
                         fullWidth 
                         name="message"
                         label="Mensaje" 
                         variant="outlined" 
                         multiline 
-                        rows={4}
+                        rows={6}
                         required
                         value={formData.message}
                         onChange={handleInputChange}
                         sx={{
+                          height: '100%',
                           '& .MuiOutlinedInput-root': {
                             borderRadius: 3,
+                            height: '100%',
                             '&:hover fieldset': {
                               borderColor: '#43e97b'
                             },
