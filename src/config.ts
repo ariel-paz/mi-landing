@@ -1,6 +1,6 @@
 export const projects = [
   {
-    title: 'E-commerce Landing Page',
+    title: 'Landing de Comercio Electrónico',
     description: 'Landing page para una tienda de comercio electrónico',
     technologies: ['React', 'Node.js', 'Bootstrap'],
     image: 'landing-template.png',
@@ -8,7 +8,7 @@ export const projects = [
     codeUrl: ''
   },
   {
-    title: 'Task Management App',
+    title: 'Aplicación de Gestión de Gastos e Inversiones',
     description: 'Aplicación de gestión de gastos e inversiones',
     technologies: ['React', 'TypeScript', 'Firebase', 'Next.js', 'Mantine UI'],
     image: 'dash.png',

@@ -1,4 +1,5 @@
-import { Container, Typography, Box, Card, Chip, Grow } from '@mui/material';
+import { Container, Typography, Box, Card, Chip, Stack } from '@mui/material';
+import { Work as WorkIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
 interface ExperienceItem {
@@ -14,39 +15,80 @@ interface ExperienceSectionProps {
 
 export default function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ py: 8 }}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Typography 
-          variant="h3" 
-          fontWeight={700} 
-          gutterBottom 
-          textAlign="center"
-          sx={{ mb: 6 }}
-        >
-          Experiencia Profesional
-        </Typography>
-        <Box sx={{ position: 'relative' }}>
-          {/* Timeline line */}
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography 
+            variant="h3" 
+            fontWeight={700} 
+            gutterBottom 
+            sx={{ 
+              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2
+            }}
+          >
+            <WorkIcon sx={{ fontSize: '3rem', color: '#667eea' }} />
+            Experiencia Profesional
+          </Typography>
+        </Box>
+        
+        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto' }}>
+          {/* Timeline line mejorada */}
           <Box 
             sx={{ 
               position: 'absolute', 
               left: { xs: 20, md: '50%' }, 
               top: 0, 
               bottom: 0, 
-              width: 2, 
-              bgcolor: 'primary.main',
-              transform: { md: 'translateX(-50%)' }
+              width: 4, 
+              background: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)',
+              transform: { md: 'translateX(-50%)' },
+              borderRadius: 2,
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 12,
+                height: 12,
+                bgcolor: '#667eea',
+                borderRadius: '50%',
+                border: '3px solid white',
+                boxShadow: '0 0 0 4px rgba(102,126,234,0.2)'
+              },
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 12,
+                height: 12,
+                bgcolor: '#764ba2',
+                borderRadius: '50%',
+                border: '3px solid white',
+                boxShadow: '0 0 0 4px rgba(118,75,162,0.2)'
+              }
             }} 
           />
+          
           {experience.map((exp, index) => (
-            <Grow 
+            <motion.div
               key={index}
-              in={true}
-              timeout={1000 + index * 200}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <Box 
                 sx={{ 
@@ -55,46 +97,77 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                   ml: { xs: 6, md: 0 }
                 }}
               >
-                {/* Timeline dot */}
+                {/* Timeline dot mejorado */}
                 <Box 
                   sx={{ 
                     position: 'absolute', 
                     left: { xs: -32, md: '50%' }, 
+                    top: 20,
                     transform: { md: 'translateX(-50%)' },
-                    width: 16, 
-                    height: 16, 
-                    bgcolor: 'primary.main', 
+                    width: 20, 
+                    height: 20, 
+                    background: `linear-gradient(45deg, ${index % 2 === 0 ? '#667eea' : '#764ba2'}, ${index % 2 === 0 ? '#764ba2' : '#f093fb'})`,
                     borderRadius: '50%',
-                    border: '3px solid white',
-                    boxShadow: '0 0 0 3px #1976d2'
+                    border: '4px solid white',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                    zIndex: 2
                   }} 
                 />
+                
                 <Card 
                   className="card-hover"
                   sx={{ 
                     ml: { md: index % 2 === 0 ? 0 : 'auto' },
                     mr: { md: index % 2 === 0 ? 'auto' : 0 },
                     width: { md: '45%' },
-                    p: 3
+                    p: 4,
+                    background: index % 2 === 0 
+                      ? 'linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%)'
+                      : 'linear-gradient(135deg, rgba(240,147,251,0.05) 0%, rgba(245,87,108,0.05) 100%)',
+                    border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}`,
+                    borderRadius: 4,
+                    position: 'relative',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 20,
+                      [index % 2 === 0 ? 'right' : 'left']: { xs: 'auto', md: -10 },
+                      width: 0,
+                      height: 0,
+                      borderTop: '10px solid transparent',
+                      borderBottom: '10px solid transparent',
+                      [index % 2 === 0 ? 'borderRight' : 'borderLeft']: { xs: 'none', md: `10px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}` },
+                      display: { xs: 'none', md: 'block' }
+                    }
                   }}
                 >
-                  <Typography variant="h6" fontWeight={600} gutterBottom>
-                    {exp.title}
-                  </Typography>
-                  <Typography variant="subtitle1" color="primary.main" fontWeight={500} gutterBottom>
-                    {exp.company}
-                  </Typography>
-                  <Chip 
-                    label={exp.period} 
-                    size="small" 
-                    sx={{ mb: 2, bgcolor: 'primary.light', color: 'white' }}
-                  />
-                  <Typography color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                    {exp.description}
-                  </Typography>
+                  <Stack spacing={2}>
+                    <Typography variant="h5" fontWeight={700} sx={{ color: index % 2 === 0 ? '#667eea' : '#f093fb' }}>
+                      {exp.title}
+                    </Typography>
+                    <Typography variant="h6" color="primary.main" fontWeight={600}>
+                      🏢 {exp.company}
+                    </Typography>
+                    <Chip 
+                      label={`📅 ${exp.period}`}
+                      size="medium" 
+                      sx={{ 
+                        alignSelf: 'flex-start',
+                        background: index % 2 === 0 
+                          ? 'linear-gradient(45deg, #667eea, #764ba2)'
+                          : 'linear-gradient(45deg, #f093fb, #f5576c)',
+                        color: 'white',
+                        fontWeight: 600,
+                        '& .MuiChip-label': { px: 2 }
+                      }}
+                    />
+                    <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.1rem' }}>
+                      {exp.description}
+                    </Typography>
+                  </Stack>
                 </Card>
               </Box>
-            </Grow>
+            </motion.div>
           ))}
         </Box>
       </motion.div>

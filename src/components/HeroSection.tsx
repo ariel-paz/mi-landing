@@ -22,102 +22,252 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          py: 0,
-          mb: 0,
-          borderRadius: 0
+          position: 'relative',
+          overflow: 'hidden',
+          borderRadius: 0,
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+            pointerEvents: 'none'
+          }
         }}
       >
-        <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 8 }} component="div">
-              <Typography 
-                variant="h3" 
-                fontWeight={700} 
-                gutterBottom
-                sx={{ mb: 2 }}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
               >
-                ¡Hola¡ 👋 Soy <span style={{ color: '#FFD700' }}>Ari</span>
-              </Typography>
-              <Typography 
-                variant="h5" 
-                sx={{ mb: 3, opacity: 0.9, fontWeight: 300 }}
-              >
-                Full Stack Developer
-              </Typography>
-              <Typography 
-                variant="body1" 
-                sx={{ mb: 4, opacity: 0.8, fontSize: '1.1rem', lineHeight: 1.6 }}
-              >
-                Apasionado por crear experiencias digitales únicas y funcionales. 
-                Especializado en React, TypeScript y tecnologías modernas.
-              </Typography>
-              <Stack 
-                direction={{ xs: 'column', sm: 'row' }} 
-                spacing={2}
-                sx={{ mb: 4 }}
-              >
-                <Button 
-                  variant="contained" 
-                  size="large" 
+                <Typography 
+                  variant="h2" 
+                  fontWeight={800} 
+                  gutterBottom
                   sx={{ 
-                    bgcolor: 'white', 
-                    color: 'primary.main',
-                    px: 4,
-                    py: 1.5,
-                    '&:hover': {
-                      bgcolor: 'grey.100'
-                    }
+                    mb: 2,
+                    fontSize: { xs: '2.5rem', md: '3.5rem' },
+                    background: 'linear-gradient(45deg, #FFD700, #FFA500)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))'
                   }}
-                  endIcon={<DownloadIcon />}
                 >
-                  Descargar CV
-                </Button>
-                <Button 
-                  variant="outlined" 
-                  size="large"
+                  ¡Hola! Soy <span style={{ color: '#FFD700' }}>Ari</span>
+                </Typography>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.4 }}
+              >
+                <Typography 
+                  variant="h4" 
                   sx={{ 
-                    borderColor: 'white', 
-                    color: 'white',
-                    px: 4,
-                    py: 1.5,
-                    '&:hover': {
-                      borderColor: 'white',
-                      bgcolor: 'rgba(255,255,255,0.1)'
-                    }
+                    mb: 3, 
+                    opacity: 0.95, 
+                    fontWeight: 400,
+                    fontSize: { xs: '1.5rem', md: '2rem' }
                   }}
-                  onClick={onContactClick}
                 >
-                  Contactar
-                </Button>
-              </Stack>
-              <Stack direction="row" spacing={2}>
-                <IconButton 
-                  sx={{ color: 'white' }} 
-                  onClick={() => window.open('https://www.linkedin.com/in/ariel-paz', '_blank')}
+                  Full Stack Developer
+                </Typography>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.6 }}
+              >
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    mb: 4, 
+                    opacity: 0.85, 
+                    fontSize: '1.2rem', 
+                    lineHeight: 1.7,
+                    maxWidth: '600px'
+                  }}
                 >
-                  <LinkedInIcon />
-                </IconButton>
-                <IconButton sx={{ color: 'white' }} onClick={() => window.open('https://github.com/ariel-paz1', '_blank')}>
-                  <GitHubIcon />
-                </IconButton>
-                <IconButton sx={{ color: 'white' }} onClick={() => window.open('mailto:ariel.paz.dev@gmail.com')}>
-                  <EmailIcon />
-                </IconButton>
-              </Stack>
+                  Apasionado por crear experiencias digitales únicas y funcionales. 
+                  Especializado en React, TypeScript y tecnologías modernas que transforman ideas en realidad.
+                </Typography>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.8 }}
+              >
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  spacing={3}
+                  sx={{ mb: 5 }}
+                >
+                  <Button 
+                    variant="contained" 
+                    size="large" 
+                    sx={{ 
+                      bgcolor: 'white', 
+                      color: 'primary.main',
+                      px: 5,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      borderRadius: 3,
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+                      background: 'linear-gradient(45deg, #ffffff, #f8f9fa)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.25)',
+                        bgcolor: 'grey.50'
+                      }
+                    }}
+                    endIcon={<DownloadIcon />}
+                  >
+                    Descargar CV
+                  </Button>
+                  <Button 
+                    variant="outlined" 
+                    size="large"
+                    sx={{ 
+                      borderColor: 'white', 
+                      color: 'white',
+                      px: 5,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      borderRadius: 3,
+                      borderWidth: 2,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        borderColor: '#FFD700',
+                        color: '#FFD700',
+                        bgcolor: 'rgba(255,215,0,0.1)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 24px rgba(255,215,0,0.3)'
+                      }
+                    }}
+                    onClick={onContactClick}
+                  >
+                    Contactar
+                  </Button>
+                </Stack>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 1 }}
+              >
+                <Stack direction="row" spacing={2}>
+                  <IconButton 
+                    sx={{ 
+                      color: 'white',
+                      bgcolor: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(255,255,255,0.2)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                      }
+                    }} 
+                  >
+                    <LinkedInIcon />
+                  </IconButton>
+                  <IconButton 
+                    sx={{ 
+                      color: 'white',
+                      bgcolor: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(255,255,255,0.2)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                      }
+                    }}
+                  >
+                    <GitHubIcon />
+                  </IconButton>
+                  <IconButton 
+                    sx={{ 
+                      color: 'white',
+                      bgcolor: 'rgba(255,255,255,0.1)',
+                      backdropFilter: 'blur(10px)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        bgcolor: 'rgba(255,255,255,0.2)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
+                      }
+                    }}
+                  >
+                    <EmailIcon />
+                  </IconButton>
+                </Stack>
+              </motion.div>
             </Grid>
+            
             <Grid size={{ xs: 12, md: 4 }} component="div">
-              <Box sx={{ textAlign: 'center' }}>
-                <Avatar
-                  src="1649716700283.jpg"
-                  sx={{ 
-                    width: { xs: 150, md: 200 }, 
-                    height: { xs: 150, md: 200 }, 
-                    mx: 'auto',
-                    border: '4px solid white',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
-                  }}
-                />
-              </Box>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <Box sx={{ 
+                  textAlign: 'center',
+                  position: 'relative',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: { xs: 180, md: 230 },
+                    height: { xs: 180, md: 230 },
+                    background: 'linear-gradient(45deg, #FFD700, #FFA500, #FF6B6B)',
+                    borderRadius: '50%',
+                    zIndex: 0,
+                    animation: 'pulse 3s ease-in-out infinite'
+                  },
+                  '@keyframes pulse': {
+                    '0%': { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.7 },
+                    '50%': { transform: 'translate(-50%, -50%) scale(1.05)', opacity: 0.5 },
+                    '100%': { transform: 'translate(-50%, -50%) scale(1)', opacity: 0.7 }
+                  }
+                }}>
+                  <Avatar
+                    src="1649716700283.jpg"
+                    sx={{ 
+                      width: { xs: 160, md: 210 }, 
+                      height: { xs: 160, md: 210 }, 
+                      mx: 'auto',
+                      border: '6px solid white',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                      position: 'relative',
+                      zIndex: 1,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: '0 20px 60px rgba(0,0,0,0.4)'
+                      }
+                    }}
+                  />
+                </Box>
+              </motion.div>
             </Grid>
           </Grid>
         </Container>

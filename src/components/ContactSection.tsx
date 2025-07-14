@@ -1,163 +1,455 @@
-import { Container, Typography, Grid, Paper, Stack, Box, TextField, Button, IconButton } from '@mui/material';
-import { Email as EmailIcon, Phone as PhoneIcon, LocationOn as LocationIcon, LinkedIn as LinkedInIcon, GitHub as GitHubIcon } from '@mui/icons-material';
+import { useState } from 'react';
+import { Container, Typography, Grid, Stack, Box, TextField, Button, IconButton, Card, Alert, Snackbar } from '@mui/material';
+import { Email as EmailIcon, Phone as PhoneIcon, LocationOn as LocationIcon, LinkedIn as LinkedInIcon, GitHub as GitHubIcon, Send as SendIcon, Chat as ChatIcon, ContactPhone as ContactPhoneIcon, Language as LanguageIcon, MailOutline as MailOutlineIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
+import { emailJSConfig } from '../config/emailConfig';
+
+const contactData = [
+  { icon: 'email', label: 'Email', value: 'ariel.paz.dev@gmail.com', color: '#667eea' },
+  { icon: 'phone', label: 'Teléfono', value: '+54 11 1234-5678', color: '#43e97b' },
+  { icon: 'location', label: 'Ubicación', value: 'Buenos Aires, Argentina', color: '#f093fb' }
+];
+
+const socialData = [
+  { icon: 'linkedin', color: '#0077b5', label: 'LinkedIn' },
+  { icon: 'github', color: '#333', label: 'GitHub' },
+  { icon: 'email', color: '#ea4335', label: 'Email' }
+];
 
 export default function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [notification, setNotification] = useState({
+    open: false,
+    message: '',
+    severity: 'success' as 'success' | 'error'
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_email: 'ariel.paz.dev@gmail.com'
+      };
+
+      await emailjs.send(
+        emailJSConfig.serviceID, 
+        emailJSConfig.templateID, 
+        templateParams, 
+        emailJSConfig.publicKey
+      );
+      
+      setNotification({
+        open: true,
+        message: '¡Mensaje enviado con éxito! Te responderé pronto.',
+        severity: 'success'
+      });
+
+      // Limpiar formulario
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+
+    } catch (error) {
+      console.error('Error al enviar email:', error);
+      setNotification({
+        open: true,
+        message: 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.',
+        severity: 'error'
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification(prev => ({ ...prev, open: false }));
+  };
+
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ py: 8 }}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <Typography 
-          variant="h3" 
-          fontWeight={700} 
-          gutterBottom 
-          textAlign="center"
-          sx={{ mb: 6 }}
-        >
-          Contacto
-        </Typography>
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography 
+            variant="h3" 
+            fontWeight={700} 
+            gutterBottom 
+            sx={{ 
+              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2
+            }}
+          >
+            <ChatIcon sx={{ fontSize: '3rem', color: '#667eea' }} />
+            Contacto
+          </Typography>
+        </Box>
+        
         <Grid container spacing={6}>
           <Grid size={{ xs: 12, md: 6 }} component="div">
-            <Paper elevation={2} sx={{ p: 4, height: '100%' }}>
-              <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mb: 3 }}>
-                Información de Contacto
-              </Typography>
-              <Stack spacing={3}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <EmailIcon sx={{ color: 'primary.main', mr: 2, fontSize: 28 }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Email
-                    </Typography>
-                    <Typography variant="body1" fontWeight={500}>
-                      ariel.paz.dev@gmail.com
-                    </Typography>
-                  </Box>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <Card 
+                elevation={0} 
+                sx={{ 
+                  p: 5, 
+                  height: '100%',
+                  background: 'linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%)',
+                  border: '2px solid rgba(102,126,234,0.1)',
+                  borderRadius: 4,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 20px 40px rgba(102,126,234,0.15)',
+                    border: '2px solid rgba(102,126,234,0.2)'
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
+                  <ContactPhoneIcon sx={{ fontSize: '2rem', color: '#667eea' }} />
+                  <Typography variant="h4" fontWeight={700} sx={{ color: '#667eea' }}>
+                    Información de Contacto
+                  </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <PhoneIcon sx={{ color: 'primary.main', mr: 2, fontSize: 28 }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Teléfono
-                    </Typography>
-                    <Typography variant="body1" fontWeight={500}>
-                      +54 11 3504-0874
-                    </Typography>
-                  </Box>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <LocationIcon sx={{ color: 'primary.main', mr: 2, fontSize: 28 }} />
-                  <Box>
-                    <Typography variant="subtitle2" color="text.secondary">
-                      Ubicación
-                    </Typography>
-                    <Typography variant="body1" fontWeight={500}>
-                      Buenos Aires, Argentina
-                    </Typography>
-                  </Box>
-                </Box>
-              </Stack>
-              <Box sx={{ mt: 4 }}>
-                <Typography variant="h6" fontWeight={600} gutterBottom>
-                  Redes Sociales
-                </Typography>
-                <Stack direction="row" spacing={2}>
-                  <IconButton 
-                    sx={{ 
-                      bgcolor: 'primary.main', 
-                      color: 'white',
-                      '&:hover': { bgcolor: 'primary.dark' }
-                    }}
-                    onClick={() => window.open('https://www.linkedin.com/in/ariel-paz', '_blank')}
-                  >
-                    <LinkedInIcon />
-                  </IconButton>
-                  <IconButton 
-                    sx={{ 
-                      bgcolor: 'grey.800', 
-                      color: 'white',
-                      '&:hover': { bgcolor: 'grey.900' }
-                    }}
-                    onClick={() => window.open('https://github.com/ariel-paz1', '_blank')}
-                  >
-                    <GitHubIcon />
-                  </IconButton>
-                  <IconButton 
-                    sx={{ 
-                      bgcolor: 'error.main', 
-                      color: 'white',
-                      '&:hover': { bgcolor: 'error.dark' }
-                    }}
-                    onClick={() => window.open('mailto:ariel.paz.dev@gmail.com')}
-                  >
-                    <EmailIcon />
-                  </IconButton>
-                </Stack>
-              </Box>
-            </Paper>
-          </Grid>
-          <Grid size={{ xs: 12, md: 6 }} component="div">
-            <Paper elevation={2} sx={{ p: 4, height: '100%' }}>
-              <Typography variant="h5" fontWeight={600} gutterBottom sx={{ mb: 3 }}>
-                Envíame un Mensaje
-              </Typography>
-              <Box component="form" noValidate autoComplete="off">
-                <Grid container spacing={3}>
-                  <Grid size={{ xs: 12, sm: 6 }} component="div">
-                    <TextField 
-                      fullWidth
-                      label="Nombre" 
-                      variant="outlined" 
-                      required
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 12, sm: 6 }} component="div">
-                    <TextField 
-                      fullWidth
-                      label="Email" 
-                      variant="outlined" 
-                      type="email"
-                      required
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 12 }} component="div">
-                    <TextField 
-                      fullWidth
-                      label="Asunto" 
-                      variant="outlined" 
-                      required
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 12 }} component="div">
-                    <TextField 
-                      fullWidth 
-                      label="Mensaje" 
-                      variant="outlined" 
-                      multiline 
-                      rows={4}
-                      required
-                    />
-                  </Grid>
-                  <Grid size={{ xs: 12 }} component="div">
-                    <Button 
-                      variant="contained" 
-                      size="large"
-                      fullWidth
-                      endIcon={<EmailIcon />}
-                      sx={{ py: 1.5 }}
+                
+                <Stack spacing={4}>
+                  {contactData.map((contact, index) => {
+                    const renderContactIcon = () => {
+                      switch (contact.icon) {
+                        case 'email':
+                          return <EmailIcon sx={{ color: contact.color, mr: 3, fontSize: 32 }} />;
+                        case 'phone':
+                          return <PhoneIcon sx={{ color: contact.color, mr: 3, fontSize: 32 }} />;
+                        case 'location':
+                          return <LocationIcon sx={{ color: contact.color, mr: 3, fontSize: 32 }} />;
+                        default:
+                          return <EmailIcon sx={{ color: contact.color, mr: 3, fontSize: 32 }} />;
+                      }
+                    };
+
+                    return (
+                    <motion.div
+                      key={contact.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                     >
-                      Enviar Mensaje
-                    </Button>
+                      <Box 
+                        sx={{ 
+                          display: 'flex', 
+                          alignItems: 'center',
+                          p: 3,
+                          borderRadius: 3,
+                          border: '2px solid transparent',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            border: `2px solid ${contact.color}`,
+                            bgcolor: `${contact.color}10`,
+                            transform: 'translateX(8px)'
+                          }
+                        }}
+                      >
+                        {renderContactIcon()}
+                        <Box>
+                          <Typography variant="subtitle1" color="text.secondary" sx={{ fontWeight: 600 }}>
+                            {contact.label}
+                          </Typography>
+                          <Typography variant="h6" fontWeight={600} sx={{ color: 'text.primary' }}>
+                            {contact.value}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </motion.div>
+                    );
+                  })}
+                </Stack>
+                
+                <Box sx={{ mt: 5 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
+                    <LanguageIcon sx={{ fontSize: '1.5rem', color: '#667eea' }} />
+                    <Typography variant="h5" fontWeight={700} sx={{ color: '#667eea' }}>
+                      Redes Sociales
+                    </Typography>
+                  </Box>
+                  <Stack direction="row" spacing={3}>
+                    {socialData.map((social, index) => {
+                      const renderSocialIcon = () => {
+                        switch (social.icon) {
+                          case 'linkedin':
+                            return <LinkedInIcon sx={{ fontSize: 28 }} />;
+                          case 'github':
+                            return <GitHubIcon sx={{ fontSize: 28 }} />;
+                          case 'email':
+                            return <EmailIcon sx={{ fontSize: 28 }} />;
+                          default:
+                            return <EmailIcon sx={{ fontSize: 28 }} />;
+                        }
+                      };
+
+                      return (
+                      <motion.div
+                        key={social.label}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <IconButton 
+                          sx={{ 
+                            bgcolor: social.color,
+                            color: 'white',
+                            width: 56,
+                            height: 56,
+                            boxShadow: `0 8px 24px ${social.color}40`,
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              bgcolor: social.color,
+                              transform: 'translateY(-4px)',
+                              boxShadow: `0 12px 32px ${social.color}60`
+                            }
+                          }}
+                        >
+                          {renderSocialIcon()}
+                        </IconButton>
+                      </motion.div>
+                      );
+                    })}
+                  </Stack>
+                </Box>
+              </Card>
+            </motion.div>
+          </Grid>
+          
+          <Grid size={{ xs: 12, md: 6 }} component="div">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <Card 
+                elevation={0} 
+                sx={{ 
+                  p: 5, 
+                  height: '100%',
+                  background: 'linear-gradient(135deg, rgba(67,233,123,0.05) 0%, rgba(56,249,215,0.05) 100%)',
+                  border: '2px solid rgba(67,233,123,0.1)',
+                  borderRadius: 4,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 20px 40px rgba(67,233,123,0.15)',
+                    border: '2px solid rgba(67,233,123,0.2)'
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
+                  <MailOutlineIcon sx={{ fontSize: '2rem', color: '#43e97b' }} />
+                  <Typography variant="h4" fontWeight={700} sx={{ color: '#43e97b' }}>
+                    Envíame un Mensaje
+                  </Typography>
+                </Box>
+                
+                <Box component="form" onSubmit={handleSubmit} noValidate autoComplete="off">
+                  <Grid container spacing={3}>
+                    <Grid size={{ xs: 12, sm: 6 }} component="div">
+                      <TextField 
+                        fullWidth
+                        name="name"
+                        label="Nombre" 
+                        variant="outlined" 
+                        required
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 3,
+                            '&:hover fieldset': {
+                              borderColor: '#43e97b'
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: '#43e97b'
+                            }
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            color: '#43e97b'
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }} component="div">
+                      <TextField 
+                        fullWidth
+                        name="email"
+                        label="Email" 
+                        variant="outlined" 
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 3,
+                            '&:hover fieldset': {
+                              borderColor: '#43e97b'
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: '#43e97b'
+                            }
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            color: '#43e97b'
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid size={{ xs: 12 }} component="div">
+                      <TextField 
+                        fullWidth
+                        name="subject"
+                        label="Asunto" 
+                        variant="outlined" 
+                        required
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 3,
+                            '&:hover fieldset': {
+                              borderColor: '#43e97b'
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: '#43e97b'
+                            }
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            color: '#43e97b'
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid size={{ xs: 12 }} component="div">
+                      <TextField 
+                        fullWidth 
+                        name="message"
+                        label="Mensaje" 
+                        variant="outlined" 
+                        multiline 
+                        rows={4}
+                        required
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            borderRadius: 3,
+                            '&:hover fieldset': {
+                              borderColor: '#43e97b'
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: '#43e97b'
+                            }
+                          },
+                          '& .MuiInputLabel-root.Mui-focused': {
+                            color: '#43e97b'
+                          }
+                        }}
+                      />
+                    </Grid>
+                    <Grid size={{ xs: 12 }} component="div">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Button 
+                          type="submit"
+                          variant="contained" 
+                          size="large"
+                          fullWidth
+                          disabled={isLoading}
+                          endIcon={<SendIcon />}
+                          sx={{ 
+                            py: 2,
+                            fontSize: '1.1rem',
+                            fontWeight: 600,
+                            borderRadius: 3,
+                            background: isLoading 
+                              ? 'linear-gradient(45deg, #ccc, #999)' 
+                              : 'linear-gradient(45deg, #43e97b, #38f9d7)',
+                            boxShadow: '0 8px 24px rgba(67,233,123,0.3)',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              background: isLoading 
+                                ? 'linear-gradient(45deg, #ccc, #999)' 
+                                : 'linear-gradient(45deg, #38d9a9, #20e3b2)',
+                              transform: isLoading ? 'none' : 'translateY(-2px)',
+                              boxShadow: isLoading 
+                                ? '0 8px 24px rgba(67,233,123,0.3)' 
+                                : '0 12px 32px rgba(67,233,123,0.4)'
+                            }
+                          }}
+                        >
+                          {isLoading ? 'Enviando...' : 'Enviar Mensaje'}
+                        </Button>
+                      </motion.div>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
-            </Paper>
+                </Box>
+              </Card>
+            </motion.div>
           </Grid>
         </Grid>
       </motion.div>
+
+      {/* Notificación de estado */}
+      <Snackbar
+        open={notification.open}
+        autoHideDuration={6000}
+        onClose={handleCloseNotification}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleCloseNotification} 
+          severity={notification.severity} 
+          sx={{ width: '100%' }}
+        >
+          {notification.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }

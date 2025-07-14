@@ -34,7 +34,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ py: 8 }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,7 +45,13 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           fontWeight={700} 
           gutterBottom 
           textAlign="center"
-          sx={{ mb: 6 }}
+          sx={{ 
+            mb: 8,
+            background: 'linear-gradient(45deg, #667eea, #764ba2)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}
         >
           Mis Proyectos
         </Typography>
