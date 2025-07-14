@@ -1,6 +1,7 @@
 import { Container, Typography, Stack, Button, IconButton, Avatar, Paper, Box, Grid } from '@mui/material';
 import { Download as DownloadIcon, LinkedIn as LinkedInIcon, GitHub as GitHubIcon, Email as EmailIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import { cvConfig } from '../config';
 
 interface HeroSectionProps {
   onContactClick: () => void;
@@ -114,6 +115,10 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                   <Button 
                     variant="contained" 
                     size="large" 
+                    component="a"
+                    href={cvConfig.downloadUrl}
+                    target="_blank"
+                    download={cvConfig.fileName}
                     sx={{ 
                       bgcolor: 'white', 
                       color: 'primary.main',
@@ -125,6 +130,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                       boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
                       background: 'linear-gradient(45deg, #ffffff, #f8f9fa)',
                       transition: 'all 0.3s ease',
+                      textDecoration: 'none',
                       '&:hover': {
                         transform: 'translateY(-2px)',
                         boxShadow: '0 12px 32px rgba(0,0,0,0.25)',

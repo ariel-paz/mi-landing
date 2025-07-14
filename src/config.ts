@@ -40,3 +40,12 @@ export const navigationItems = [
   { label: 'Proyectos', icon: 'code', value: 3 },
   { label: 'Contacto', icon: 'email', value: 4 }
 ];
+
+// Configuración para descarga de CV
+export const cvConfig = {
+  driveFileId: '1v4t8elfD-nTtX0FG_htEUMIcUBWYoRYT',
+  fileName: 'CV_Ariel_Paz.pdf',
+  get downloadUrl() {
+    return `https://drive.google.com/file/d/${this.driveFileId}/view?usp=sharing`;
+  }
+};
