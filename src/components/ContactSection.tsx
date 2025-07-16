@@ -6,16 +6,23 @@ import emailjs from '@emailjs/browser';
 import { emailJSConfig } from '../config/emailConfig';
 import useAnalytics from '../hooks/useAnalytics';
 
+interface SocialData {
+  icon: string;
+  color: string;
+  label: string;
+  url: string;
+}
+
 const contactData = [
   { icon: 'email', label: 'Email', value: 'ariel.paz.dev@gmail.com', color: '#667eea' },
   { icon: 'phone', label: 'Teléfono', value: '+54 11 1234-5678', color: '#43e97b' },
   { icon: 'location', label: 'Ubicación', value: 'Buenos Aires, Argentina', color: '#f093fb' }
 ];
 
-const socialData = [
-  { icon: 'linkedin', color: '#0077b5', label: 'LinkedIn' },
-  { icon: 'github', color: '#333', label: 'GitHub' },
-  { icon: 'email', color: '#ea4335', label: 'Email' }
+const socialData: SocialData[] = [
+  { icon: 'linkedin', color: '#0077b5', label: 'LinkedIn', url: 'https://www.linkedin.com/in/ariel-paz/' },
+  { icon: 'github', color: '#333', label: 'GitHub', url: 'https://github.com/ariel-paz1' },
+  { icon: 'email', color: '#ea4335', label: 'Email', url: 'mailto:ariel.paz.dev@gmail.com' }
 ];
 
 export default function ContactSection() {
@@ -97,12 +104,27 @@ export default function ContactSection() {
     }
   };
 
-  const handleSocialClick = (platform: string) => {
+  const handleSocialClick = (platform: string, url: string) => {
     trackEvent('social_click', 'contact_section', platform);
+    window.open(url, '_blank');
   };
 
-  const handleContactMethodClick = (method: string) => {
+  const handleContactMethodClick = (method: string, value: string) => {
     trackEvent('contact_interaction', 'contact_method', method);
+    
+    switch (method) {
+      case 'email':
+        window.open(`mailto:${value}`, '_blank');
+        break;
+      case 'phone':
+        window.open(`tel:${value}`, '_blank');
+        break;
+      case 'location':
+        window.open(`https://www.google.com/maps/search/${encodeURIComponent(value)}`, '_blank');
+        break;
+      default:
+        break;
+    }
   };
 
   const handleCloseNotification = () => {
@@ -194,7 +216,7 @@ export default function ContactSection() {
                       transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                     >
                       <Box 
-                        onClick={() => handleContactMethodClick(contact.icon)}
+                        onClick={() => handleContactMethodClick(contact.icon, contact.value)}
                         sx={{ 
                           display: 'flex', 
                           alignItems: 'center',
@@ -257,7 +279,7 @@ export default function ContactSection() {
                         whileTap={{ scale: 0.95 }}
                       >
                         <IconButton 
-                          onClick={() => handleSocialClick(social.icon)}
+                          onClick={() => handleSocialClick(social.icon, social.url)}
                           sx={{ 
                             bgcolor: social.color,
                             color: 'white',

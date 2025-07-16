@@ -20,8 +20,9 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
     onContactClick();
   };
 
-  const handleSocialClick = (platform: string) => {
+  const handleSocialClick = (platform: string, url: string) => {
     trackEvent('social_click', 'external_link', platform);
+    window.open(url, '_blank');
   };
 
   return (
@@ -205,7 +206,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }} 
-                    onClick={() => handleSocialClick('linkedin')}
+                    onClick={() => handleSocialClick('linkedin', 'https://www.linkedin.com/in/ariel-paz/')}
                   >
                     <LinkedInIcon />
                   </IconButton>
@@ -222,7 +223,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }}
-                    onClick={() => handleSocialClick('github')}
+                    onClick={() => handleSocialClick('github', 'https://github.com/ariel-paz1')}
                   >
                     <GitHubIcon />
                   </IconButton>
@@ -239,7 +240,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }}
-                    onClick={() => handleSocialClick('email')}
+                    onClick={() => handleSocialClick('email', 'mailto:ariel.paz.dev@gmail.com')}
                   >
                     <EmailIcon />
                   </IconButton>
