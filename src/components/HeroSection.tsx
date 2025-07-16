@@ -2,12 +2,28 @@ import { Container, Typography, Stack, Button, IconButton, Avatar, Paper, Box, G
 import { Download as DownloadIcon, LinkedIn as LinkedInIcon, GitHub as GitHubIcon, Email as EmailIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import { cvConfig } from '../config';
+import useAnalytics from '../hooks/useAnalytics';
 
 interface HeroSectionProps {
   onContactClick: () => void;
 }
 
 export default function HeroSection({ onContactClick }: HeroSectionProps) {
+  const { trackEvent } = useAnalytics();
+
+  const handleDownloadCV = () => {
+    trackEvent('download', 'cv', 'hero_section');
+  };
+
+  const handleContactClick = () => {
+    trackEvent('navigation', 'contact_click', 'hero_section');
+    onContactClick();
+  };
+
+  const handleSocialClick = (platform: string) => {
+    trackEvent('social_click', 'external_link', platform);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -138,6 +154,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                       }
                     }}
                     endIcon={<DownloadIcon />}
+                    onClick={handleDownloadCV}
                   >
                     Descargar CV
                   </Button>
@@ -162,7 +179,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(255,215,0,0.3)'
                       }
                     }}
-                    onClick={onContactClick}
+                    onClick={handleContactClick}
                   >
                     Contactar
                   </Button>
@@ -188,6 +205,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }} 
+                    onClick={() => handleSocialClick('linkedin')}
                   >
                     <LinkedInIcon />
                   </IconButton>
@@ -204,6 +222,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }}
+                    onClick={() => handleSocialClick('github')}
                   >
                     <GitHubIcon />
                   </IconButton>
@@ -220,6 +239,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }}
+                    onClick={() => handleSocialClick('email')}
                   >
                     <EmailIcon />
                   </IconButton>

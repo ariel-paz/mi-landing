@@ -4,6 +4,7 @@ import { Email as EmailIcon, Phone as PhoneIcon, LocationOn as LocationIcon, Lin
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { emailJSConfig } from '../config/emailConfig';
+import useAnalytics from '../hooks/useAnalytics';
 
 const contactData = [
   { icon: 'email', label: 'Email', value: 'ariel.paz.dev@gmail.com', color: '#667eea' },
@@ -30,6 +31,7 @@ export default function ContactSection() {
     message: '',
     severity: 'success' as 'success' | 'error'
   });
+  const { trackEvent } = useAnalytics();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,6 +44,9 @@ export default function ContactSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
+    // Trackear envío de formulario
+    trackEvent('form_submission', 'contact_form', 'start');
 
     try {
       const templateParams = {
@@ -59,6 +64,9 @@ export default function ContactSection() {
         emailJSConfig.publicKey
       );
       
+      // Trackear éxito del formulario
+      trackEvent('form_submission', 'contact_form', 'success');
+      
       setNotification({
         open: true,
         message: '¡Mensaje enviado con éxito! Te responderé pronto.',
@@ -75,6 +83,10 @@ export default function ContactSection() {
 
     } catch (error) {
       console.error('Error al enviar email:', error);
+      
+      // Trackear error del formulario
+      trackEvent('form_submission', 'contact_form', 'error');
+      
       setNotification({
         open: true,
         message: 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.',
@@ -83,6 +95,14 @@ export default function ContactSection() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSocialClick = (platform: string) => {
+    trackEvent('social_click', 'contact_section', platform);
+  };
+
+  const handleContactMethodClick = (method: string) => {
+    trackEvent('contact_interaction', 'contact_method', method);
   };
 
   const handleCloseNotification = () => {
@@ -174,6 +194,7 @@ export default function ContactSection() {
                       transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                     >
                       <Box 
+                        onClick={() => handleContactMethodClick(contact.icon)}
                         sx={{ 
                           display: 'flex', 
                           alignItems: 'center',
@@ -181,6 +202,7 @@ export default function ContactSection() {
                           borderRadius: 3,
                           border: '2px solid transparent',
                           transition: 'all 0.3s ease',
+                          cursor: 'pointer',
                           '&:hover': {
                             border: `2px solid ${contact.color}`,
                             bgcolor: `${contact.color}10`,
@@ -235,6 +257,7 @@ export default function ContactSection() {
                         whileTap={{ scale: 0.95 }}
                       >
                         <IconButton 
+                          onClick={() => handleSocialClick(social.icon)}
                           sx={{ 
                             bgcolor: social.color,
                             color: 'white',

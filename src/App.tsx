@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -31,20 +31,39 @@ import ProjectsSection from './components/ProjectsSection';
 import ContactSection from './components/ContactSection';
 import TabPanel from './components/TabPanel';
 import { projects, experience, navigationItems } from './config';
+import useAnalytics from './hooks/useAnalytics';
+
+// Mapear tabs a nombres de pantalla
+const screenNames = [
+  'home',
+  'about',
+  'experience', 
+  'projects',
+  'contact'
+];
 
 function App() {
   const [tabValue, setTabValue] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { trackScreenView, trackEvent } = useAnalytics();
 
-  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+  // Trackear cambios de pantalla
+  useEffect(() => {
+    const screenName = screenNames[tabValue];
+    
+    if (screenName) {
+      trackScreenView(screenName);
+      // También trackear como evento personalizado
+      trackEvent('navigation', 'tab_change', screenName);
+    }
+  }, [tabValue, trackScreenView, trackEvent]);
 
-  const toggleDrawer = () => {
-    setDrawerOpen(!drawerOpen);
-  };
+  // Trackear carga inicial de la aplicación
+  useEffect(() => {
+    trackEvent('app', 'page_load', 'portfolio_landing');
+  }, [trackEvent]);
 
   function getIcon(icon: string) {
     switch (icon) {
@@ -56,6 +75,14 @@ function App() {
       default: return undefined;
     }
   }
+
+  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
@@ -178,29 +205,30 @@ function App() {
             ✨ Navegación
           </Typography>
           <List>
-            {navigationItems.map((item) => (
-              <ListItem 
-                key={item.value}
-                component="button"
-                onClick={() => {
-                  setTabValue(item.value);
-                  setDrawerOpen(false);
-                }}
-                sx={{ 
-                  width: '100%', 
-                  textAlign: 'left', 
-                  border: 'none', 
-                  background: 'none', 
-                  p: 2,
-                  borderRadius: 2,
-                  mb: 1,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    bgcolor: 'rgba(102,126,234,0.1)',
-                    transform: 'translateX(8px)'
-                  }
-                }}
-              >
+            {navigationItems.map((item) => (                <ListItem 
+                  key={item.value}
+                  component="button"
+                  onClick={() => {
+                    setTabValue(item.value);
+                    setDrawerOpen(false);
+                    // Trackear navegación móvil
+                    trackEvent('navigation', 'mobile_menu_click', screenNames[item.value]);
+                  }}
+                  sx={{ 
+                    width: '100%', 
+                    textAlign: 'left', 
+                    border: 'none', 
+                    background: 'none', 
+                    p: 2,
+                    borderRadius: 2,
+                    mb: 1,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(102,126,234,0.1)',
+                      transform: 'translateX(8px)'
+                    }
+                  }}
+                >
                 <ListItemIcon sx={{ color: '#667eea' }}>
                   {getIcon(item.icon)}
                 </ListItemIcon>

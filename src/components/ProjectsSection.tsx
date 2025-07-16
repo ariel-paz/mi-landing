@@ -5,6 +5,7 @@ import { Launch as LaunchIcon, GitHub as GitHubIcon, Close as CloseIcon } from '
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import useAnalytics from '../hooks/useAnalytics';
 
 interface Project {
   title: string;
@@ -23,14 +24,28 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [open, setOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const { trackEvent } = useAnalytics();
 
   const handleOpen = (project: Project) => {
     setActiveProject(project);
     setOpen(true);
+    trackEvent('project_interaction', 'image_gallery_open', project.title);
   };
   const handleClose = () => {
     setOpen(false);
     setActiveProject(null);
+  };
+
+  const handleDemoClick = (projectTitle: string) => {
+    trackEvent('project_interaction', 'demo_click', projectTitle);
+  };
+
+  const handleCodeClick = (projectTitle: string) => {
+    trackEvent('project_interaction', 'code_click', projectTitle);
+  };
+
+  const handleGitHubProfileClick = () => {
+    trackEvent('social_click', 'github_profile', 'projects_section');
   };
 
   return (
@@ -99,6 +114,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       href={project.demoUrl}
                       target="_blank"
                       disabled={!project.demoUrl}
+                      onClick={() => handleDemoClick(project.title)}
                     >
                       Demo
                     </Button>
@@ -110,6 +126,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
                       href={project.codeUrl}
                       target="_blank"
                       disabled={!project.codeUrl}
+                      onClick={() => handleCodeClick(project.title)}
                     >
                       Código
                     </Button>
@@ -127,6 +144,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             sx={{ px: 4 }}
             href="https://github.com/ariel-paz1"
             target="_blank"
+            onClick={handleGitHubProfileClick}
           >
             Ver más en GitHub
           </Button>
