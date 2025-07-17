@@ -202,7 +202,7 @@ function App() {
               WebkitTextFillColor: 'transparent'
             }}
           >
-            ✨ Navegación
+            Navegación
           </Typography>
           <List>
             {navigationItems.map((item) => (                <ListItem 

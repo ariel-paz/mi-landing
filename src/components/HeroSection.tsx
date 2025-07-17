@@ -56,7 +56,10 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
         }}
       >
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Grid container spacing={6} alignItems="center">
+          <Grid container spacing={6} alignItems="center" sx={{ 
+            flexDirection: { xs: 'column-reverse', md: 'row' }, 
+            padding: { xs: 3, md: 4 },
+          }}>
             <Grid size={{ xs: 12, md: 8 }} component="div">
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
