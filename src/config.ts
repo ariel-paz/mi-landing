@@ -49,3 +49,20 @@ export const cvConfig = {
     return `https://drive.google.com/file/d/${this.driveFileId}/view?usp=sharing`;
   }
 };
+
+// Configuración de datos personales y contacto
+export const personalInfo = {
+  name: 'Ariel Paz',
+  email: 'ariel.paz.dev@gmail.com',
+  phone: '+54 11 1234-5678',
+  location: 'Buenos Aires, Argentina',
+  linkedin: 'https://www.linkedin.com/in/ariel-paz/',
+  github: 'https://github.com/ariel-paz1',
+};
+
+// Configuración de EmailJS
+export const emailJSConfig = {
+  serviceID: 'portfolio', // Reemplaza con tu Service ID
+  templateID: 'template_u4t7hoq', // Reemplaza con tu Template ID
+  publicKey: '9785hw3wyozLTsw4k' // Reemplaza con tu Public Key
+};

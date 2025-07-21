@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Stack, Box, TextField, Button, IconButton,
 import { Email as EmailIcon, Phone as PhoneIcon, LocationOn as LocationIcon, LinkedIn as LinkedInIcon, GitHub as GitHubIcon, Send as SendIcon, Chat as ChatIcon, ContactPhone as ContactPhoneIcon, Language as LanguageIcon, MailOutline as MailOutlineIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-import { emailJSConfig } from '../config/emailConfig';
+import { personalInfo, emailJSConfig } from '../config';
 import useAnalytics from '../hooks/useAnalytics';
 
 interface SocialData {
@@ -14,15 +14,15 @@ interface SocialData {
 }
 
 const contactData = [
-  { icon: 'email', label: 'Email', value: 'ariel.paz.dev@gmail.com', color: '#667eea' },
-  { icon: 'phone', label: 'Teléfono', value: '+54 11 1234-5678', color: '#43e97b' },
-  { icon: 'location', label: 'Ubicación', value: 'Buenos Aires, Argentina', color: '#f093fb' }
+  { icon: 'email', label: 'Email', value: personalInfo.email, color: '#667eea' },
+  { icon: 'phone', label: 'Teléfono', value: personalInfo.phone, color: '#43e97b' },
+  { icon: 'location', label: 'Ubicación', value: personalInfo.location, color: '#f093fb' }
 ];
 
 const socialData: SocialData[] = [
-  { icon: 'linkedin', color: '#0077b5', label: 'LinkedIn', url: 'https://www.linkedin.com/in/ariel-paz/' },
-  { icon: 'github', color: '#333', label: 'GitHub', url: 'https://github.com/ariel-paz1' },
-  { icon: 'email', color: '#ea4335', label: 'Email', url: 'mailto:ariel.paz.dev@gmail.com' }
+  { icon: 'linkedin', color: '#0077b5', label: 'LinkedIn', url: personalInfo.linkedin },
+  { icon: 'github', color: '#333', label: 'GitHub', url: personalInfo.github },
+  { icon: 'email', color: '#ea4335', label: 'Email', url: `mailto:${personalInfo.email}` }
 ];
 
 export default function ContactSection() {
@@ -61,7 +61,7 @@ export default function ContactSection() {
         from_email: formData.email,
         subject: formData.subject,
         message: formData.message,
-        to_email: 'ariel.paz.dev@gmail.com'
+        to_email: personalInfo.email
       };
 
       await emailjs.send(
