@@ -226,7 +226,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                         boxShadow: '0 8px 24px rgba(0,0,0,0.2)'
                       }
                     }}
-                    onClick={() => handleSocialClick('github', 'https://github.com/ariel-paz1')}
+                    onClick={() => handleSocialClick('github', 'https://github.com/ariel-paz')}
                   >
                     <GitHubIcon />
                   </IconButton>

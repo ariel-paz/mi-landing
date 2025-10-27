@@ -142,7 +142,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
             size="large"
             endIcon={<GitHubIcon />}
             sx={{ px: 4 }}
-            href="https://github.com/ariel-paz1"
+            href="https://github.com/ariel-paz"
             target="_blank"
             onClick={handleGitHubProfileClick}
           >

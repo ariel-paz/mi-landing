@@ -4,7 +4,7 @@ export const projects = [
     description: 'Landing page para una tienda de comercio electrónico',
     technologies: ['React', 'Node.js', 'Bootstrap'],
     image: 'landing-template.png',
-    demoUrl: 'https://ariel-paz1.github.io/template-landing/',
+    demoUrl: 'https://ariel-paz.github.io/template-landing/',
     codeUrl: ''
   },
   {
@@ -13,9 +13,17 @@ export const projects = [
     technologies: ['React', 'TypeScript', 'Firebase', 'Next.js', 'Mantine UI'],
     image: 'dash.png',
     images: ['dash1.png', 'dash2.png', 'dash3.png', 'dash4.png'],
-    demoUrl: '',
+    demoUrl: 'https://dash-next-cash.vercel.app/',
     codeUrl: ''
   },
+  {
+    title: 'Sitio Web de Propiedades',
+    description: 'Sitio web para una inmobiliaria con listado de propiedades',
+    image: 'pianca.png',
+    technologies: ['React', 'TypeScript', 'Tokko-Broker', 'Bootstrap'],
+    demoUrl: 'https://piancatelli-propiedades.com.ar/',
+    codeUrl: ''
+  }
 ];
 
 export const experience = [
@@ -57,7 +65,7 @@ export const personalInfo = {
   phone: '+54 11 1234-5678',
   location: 'Buenos Aires, Argentina',
   linkedin: 'https://www.linkedin.com/in/ariel-paz/',
-  github: 'https://github.com/ariel-paz1',
+  github: 'https://github.com/ariel-paz',
 };
 
 // Configuración de EmailJS
