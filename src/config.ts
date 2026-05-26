@@ -31,7 +31,7 @@ export const experience = [
     title: 'Software Engineer',
     company: 'Santander Tecnología Argentina',
     period: 'feb. 2023 - actualidad',
-    description: 'Desarrollo de soluciones tecnológicas para el sector bancario, trabajando en el equipo de Custodia y utilizando tecnologías modernas.'
+    description: 'Trabajo en el área de Inversiones en Santander, enfocándome en acciones y bonos, con soporte a operaciones de plazo fijo. Desarrollo soluciones con Node.js, Nest y TypeScript para integrar flujos y automatizar procesos.'
   },
   {
     title: 'Desarrollador Full Stack',

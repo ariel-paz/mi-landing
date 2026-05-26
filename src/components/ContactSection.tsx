@@ -14,9 +14,9 @@ interface SocialData {
 }
 
 const contactData = [
-  { icon: 'email', label: 'Email', value: personalInfo.email, color: '#667eea' },
+  { icon: 'email', label: 'Email', value: personalInfo.email, color: '#00C2A8' },
   { icon: 'phone', label: 'Teléfono', value: personalInfo.phone, color: '#43e97b' },
-  { icon: 'location', label: 'Ubicación', value: personalInfo.location, color: '#f093fb' }
+  { icon: 'location', label: 'Ubicación', value: personalInfo.location, color: '#F9C74F' }
 ];
 
 const socialData: SocialData[] = [
@@ -144,7 +144,7 @@ export default function ContactSection() {
             fontWeight={700} 
             gutterBottom 
             sx={{ 
-              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -154,7 +154,7 @@ export default function ContactSection() {
               gap: 2
             }}
           >
-            <ChatIcon sx={{ fontSize: '3rem', color: '#667eea' }} />
+            <ChatIcon sx={{ fontSize: '3rem', color: '#00C2A8' }} />
             Contacto
           </Typography>
         </Box>
@@ -187,8 +187,8 @@ export default function ContactSection() {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-                  <ContactPhoneIcon sx={{ fontSize: '2rem', color: '#667eea' }} />
-                  <Typography variant="h4" fontWeight={700} sx={{ color: '#667eea' }}>
+                  <ContactPhoneIcon sx={{ fontSize: '2rem', color: '#00C2A8' }} />
+                  <Typography variant="h4" fontWeight={700} sx={{ color: '#00C2A8' }}>
                     Información de Contacto
                   </Typography>
                 </Box>
@@ -249,8 +249,8 @@ export default function ContactSection() {
                 
                 <Box sx={{ mt: 5 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                    <LanguageIcon sx={{ fontSize: '1.5rem', color: '#667eea' }} />
-                    <Typography variant="h5" fontWeight={700} sx={{ color: '#667eea' }}>
+                    <LanguageIcon sx={{ fontSize: '1.5rem', color: '#00C2A8' }} />
+                    <Typography variant="h5" fontWeight={700} sx={{ color: '#00C2A8' }}>
                       Redes Sociales
                     </Typography>
                   </Box>

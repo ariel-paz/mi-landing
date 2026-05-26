@@ -27,7 +27,7 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
             fontWeight={700} 
             gutterBottom 
             sx={{ 
-              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -37,7 +37,7 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
               gap: 2
             }}
           >
-            <WorkIcon sx={{ fontSize: '3rem', color: '#667eea' }} />
+            <WorkIcon sx={{ fontSize: '3rem', color: '#00C2A8' }} />
             Experiencia Profesional
           </Typography>
         </Box>
@@ -51,11 +51,11 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
               top: 60, 
               bottom: 60, 
               width: { xs: 4, md: 6 }, 
-              background: 'linear-gradient(180deg, #667eea 0%, #764ba2 50%, #f093fb 100%)',
+              background: 'linear-gradient(180deg, #00C2A8 0%, #0B1320 50%, #F9C74F 100%)',
               transform: { md: 'translateX(-50%)' },
               borderRadius: 3,
               zIndex: 1,
-              boxShadow: '0 0 20px rgba(102,126,234,0.3)'
+              boxShadow: '0 0 20px rgba(0,194,168,0.3)'
             }} 
           />
           
@@ -82,14 +82,14 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                     transform: { md: 'translateX(-50%)' },
                     width: { xs: 18, md: 24 }, 
                     height: { xs: 18, md: 24 }, 
-                    background: `linear-gradient(45deg, ${
-                      index % 2 === 0 
-                        ? '#667eea, #764ba2' 
-                        : '#f093fb, #f5576c'
-                    })`,
+                      background: `linear-gradient(45deg, ${
+                        index % 2 === 0
+                          ? '#00C2A8, #0B1320'
+                          : '#F9C74F, #F3722C'
+                      })`,
                     borderRadius: '50%',
                     border: { xs: '3px solid white', md: '4px solid white' },
-                    boxShadow: `0 0 0 ${index % 2 === 0 ? '4px rgba(102,126,234,0.2)' : '4px rgba(240,147,251,0.2)'}, 0 4px 20px rgba(0,0,0,0.15)`,
+                      boxShadow: `0 0 0 ${index % 2 === 0 ? '4px rgba(0,194,168,0.2)' : '4px rgba(249,199,79,0.2)'}, 0 4px 20px rgba(0,0,0,0.15)`,
                     zIndex: 3,
                     '&::before': {
                       content: '""',
@@ -114,20 +114,20 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                     minHeight: { xs: 240, md: 320 },
                     p: { xs: 2.5, md: 4 },
                     background: index % 2 === 0 
-                      ? 'linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%)'
-                      : 'linear-gradient(135deg, rgba(240,147,251,0.08) 0%, rgba(245,87,108,0.08) 100%)',
-                    border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.15)' : 'rgba(240,147,251,0.15)'}`,
+                      ? 'linear-gradient(135deg, rgba(0,194,168,0.08) 0%, rgba(11,19,32,0.08) 100%)'
+                      : 'linear-gradient(135deg, rgba(249,199,79,0.08) 0%, rgba(243,114,44,0.08) 100%)',
+                    border: `2px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.15)' : 'rgba(249,199,79,0.15)'}`,
                     borderRadius: 4,
                     position: 'relative',
                     display: 'flex',
                     flexDirection: 'column',
                     backdropFilter: 'blur(10px)',
-                    boxShadow: `0 8px 32px ${index % 2 === 0 ? 'rgba(102,126,234,0.1)' : 'rgba(240,147,251,0.1)'}`,
+                    boxShadow: `0 8px 32px ${index % 2 === 0 ? 'rgba(0,194,168,0.1)' : 'rgba(249,199,79,0.1)'}`,
                     transition: 'all 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-8px)',
-                      boxShadow: `0 16px 48px ${index % 2 === 0 ? 'rgba(102,126,234,0.2)' : 'rgba(240,147,251,0.2)'}`,
-                      border: `2px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.3)' : 'rgba(240,147,251,0.3)'}`
+                      boxShadow: `0 16px 48px ${index % 2 === 0 ? 'rgba(0,194,168,0.2)' : 'rgba(249,199,79,0.2)'}`,
+                      border: `2px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.3)' : 'rgba(249,199,79,0.3)'}`
                     },
                     '&::before': {
                       content: '""',
@@ -140,7 +140,7 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                       borderBottom: '15px solid transparent',
                       [index % 2 === 0 ? 'borderRight' : 'borderLeft']: { 
                         xs: 'none', 
-                        md: `15px solid ${index % 2 === 0 ? 'rgba(102,126,234,0.15)' : 'rgba(240,147,251,0.15)'}` 
+                        md: `15px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.15)' : 'rgba(249,199,79,0.15)'}` 
                       },
                       display: { xs: 'none', md: 'block' }
                     }
@@ -152,7 +152,7 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                         variant="h4" 
                         fontWeight={700} 
                         sx={{ 
-                          color: index % 2 === 0 ? '#667eea' : '#f093fb',
+                          color: index % 2 === 0 ? '#00C2A8' : '#F9C74F',
                           mb: 1,
                           fontSize: { xs: '1.3rem', md: '1.8rem' }
                         }}
@@ -181,8 +181,8 @@ export default function ExperienceSection({ experience }: ExperienceSectionProps
                       sx={{ 
                         alignSelf: 'flex-start',
                         background: index % 2 === 0 
-                          ? 'linear-gradient(45deg, #667eea, #764ba2)'
-                          : 'linear-gradient(45deg, #f093fb, #f5576c)',
+                          ? 'linear-gradient(45deg, #00C2A8, #0B1320)'
+                          : 'linear-gradient(45deg, #F9C74F, #F3722C)',
                         color: 'white',
                         fontWeight: 700,
                         fontSize: { xs: '0.8rem', md: '0.9rem' },

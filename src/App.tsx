@@ -105,7 +105,7 @@ function App() {
               flexGrow: 1, 
               color: 'text.primary', 
               fontWeight: 800,
-              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -127,16 +127,16 @@ function App() {
                   margin: '0 4px',
                   transition: 'all 0.3s ease',
                   '&:hover': {
-                    bgcolor: 'rgba(102,126,234,0.1)',
+                  bgcolor: 'rgba(0,194,168,0.1)',
                     transform: 'translateY(-2px)'
                   },
                   '&.Mui-selected': {
-                    color: '#667eea',
-                    bgcolor: 'rgba(102,126,234,0.1)'
+                  color: '#00C2A8',
+                  bgcolor: 'rgba(0,194,168,0.1)'
                   }
                 },
                 '& .MuiTabs-indicator': {
-                  background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
                   height: 3,
                   borderRadius: 2
                 }
@@ -163,9 +163,9 @@ function App() {
               onClick={toggleDrawer}
               sx={{ 
                 color: 'text.primary',
-                bgcolor: 'rgba(102,126,234,0.1)',
+                bgcolor: 'rgba(0,194,168,0.1)',
                 '&:hover': {
-                  bgcolor: 'rgba(102,126,234,0.2)',
+                  bgcolor: 'rgba(0,194,168,0.2)',
                   transform: 'scale(1.1)'
                 },
                 transition: 'all 0.3s ease'
@@ -184,7 +184,7 @@ function App() {
         onClose={toggleDrawer}
         sx={{
           '& .MuiDrawer-paper': {
-            background: 'linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%)',
+            background: 'linear-gradient(135deg, rgba(0,194,168,0.05) 0%, rgba(11,19,32,0.05) 100%)',
             backdropFilter: 'blur(20px)'
           }
         }}
@@ -196,7 +196,7 @@ function App() {
               mb: 3, 
               textAlign: 'center',
               fontWeight: 700,
-              background: 'linear-gradient(45deg, #667eea, #764ba2)',
+              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent'
@@ -224,12 +224,12 @@ function App() {
                     mb: 1,
                     transition: 'all 0.3s ease',
                     '&:hover': {
-                      bgcolor: 'rgba(102,126,234,0.1)',
+                      bgcolor: 'rgba(0,194,168,0.1)',
                       transform: 'translateX(8px)'
                     }
                   }}
                 >
-                <ListItemIcon sx={{ color: '#667eea' }}>
+                <ListItemIcon sx={{ color: '#00C2A8' }}>
                   {getIcon(item.icon)}
                 </ListItemIcon>
                 <ListItemText 

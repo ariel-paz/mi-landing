@@ -62,7 +62,7 @@ export default function ProjectsSection({ projects }: ProjectsSectionProps) {
           textAlign="center"
           sx={{ 
             mb: 8,
-            background: 'linear-gradient(45deg, #667eea, #764ba2)',
+            background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'

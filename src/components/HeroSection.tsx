@@ -34,7 +34,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
       <Paper 
         elevation={0}
         sx={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #00C2A8 0%, #0B1320 100%)',
           color: 'white',
           minHeight: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
           display: 'flex',
@@ -50,7 +50,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
             left: 0,
             right: 0,
             bottom: 0,
-            background: 'radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%)',
+            background: 'radial-gradient(circle at 20% 80%, rgba(0,194,168,0.35) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(249,199,79,0.18) 0%, transparent 50%)',
             pointerEvents: 'none'
           }
         }}
@@ -268,7 +268,7 @@ export default function HeroSection({ onContactClick }: HeroSectionProps) {
                     transform: 'translate(-50%, -50%)',
                     width: { xs: 180, md: 230 },
                     height: { xs: 180, md: 230 },
-                    background: 'linear-gradient(45deg, #FFD700, #FFA500, #FF6B6B)',
+                  background: 'linear-gradient(45deg, #F9C74F, #F3722C, #00C2A8)',
                     borderRadius: '50%',
                     zIndex: 0,
                     animation: 'pulse 3s ease-in-out infinite'

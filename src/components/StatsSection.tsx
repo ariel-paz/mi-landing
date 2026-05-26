@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 export default function StatsSection() {
   const stats = [
-    { value: '3+', label: 'Años de Experiencia', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', icon: '🚀' },
-    { value: '25+', label: 'Proyectos Completados', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', icon: '💼' },
+    { value: '3+', label: 'Años de Experiencia', gradient: 'linear-gradient(135deg, #00C2A8 0%, #0B1320 100%)', icon: '🚀' },
+    { value: '25+', label: 'Proyectos Completados', gradient: 'linear-gradient(135deg, #F9C74F 0%, #F3722C 100%)', icon: '💼' },
     { value: '15+', label: 'Tecnologías Dominadas', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', icon: '⚡' },
     { value: '100%', label: 'Satisfacción del Cliente', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)', icon: '⭐' }
   ];

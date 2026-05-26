@@ -18,7 +18,7 @@ export default function AboutSection() {
           textAlign="center"
           sx={{ 
             mb: 8,
-            background: 'linear-gradient(45deg, #667eea, #764ba2)',
+            background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
@@ -39,20 +39,20 @@ export default function AboutSection() {
                 sx={{ 
                   p: 5, 
                   height: '100%',
-                  background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-                  border: '2px solid rgba(102,126,234,0.1)',
+                  background: 'linear-gradient(135deg, rgba(0,194,168,0.1) 0%, rgba(11,19,32,0.1) 100%)',
+                  border: '2px solid rgba(0,194,168,0.1)',
                   borderRadius: 4,
                   transition: 'all 0.3s ease',
                   '&:hover': {
                     transform: 'translateY(-4px)',
-                    boxShadow: '0 20px 40px rgba(102,126,234,0.15)',
-                    border: '2px solid rgba(102,126,234,0.2)'
+                    boxShadow: '0 20px 40px rgba(0,194,168,0.15)',
+                    border: '2px solid rgba(0,194,168,0.2)'
                   }
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                  <BookIcon sx={{ fontSize: '2rem', color: '#667eea' }} />
-                  <Typography variant="h4" fontWeight={700} sx={{ color: '#667eea' }}>
+                  <BookIcon sx={{ fontSize: '2rem', color: '#00C2A8' }} />
+                  <Typography variant="h4" fontWeight={700} sx={{ color: '#00C2A8' }}>
                     Mi Historia
                   </Typography>
                 </Box>
@@ -66,7 +66,7 @@ export default function AboutSection() {
                   Trabajé durante 3 años en Chat-tonic diseñando chatbots y entrenándolos con IA.
                 </Typography>
                 <Typography color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                  Actualmente formo parte de Santander Tecnología, en el área de Inversiones, donde utilizo tecnologías como Node.js, Nest y TypeScript para crear soluciones eficientes y escalables.
+                  Actualmente formo parte de Santander Tecnología en el área de Inversiones (acciones, bonos y plazo fijo), donde utilizo tecnologías como Node.js, Nest y TypeScript para crear soluciones eficientes y escalables.
                 </Typography>
               </Paper>
             </motion.div>
@@ -153,7 +153,7 @@ export default function AboutSection() {
               gutterBottom 
               sx={{ 
                 mb: 6,
-                background: 'linear-gradient(45deg, #667eea, #764ba2)',
+                background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
@@ -167,8 +167,8 @@ export default function AboutSection() {
                 { 
                   title: 'Frontend Development', 
                   description: 'Vite, TypeScript, Material-UI, Bootstrap, Next.js',
-                  gradient: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-                  iconColor: '#667eea',
+                  gradient: 'linear-gradient(135deg, rgba(0,194,168,0.1) 0%, rgba(11,19,32,0.1) 100%)',
+                  iconColor: '#00C2A8',
                   icon: 'computer'
                 },
                 { 
@@ -181,8 +181,8 @@ export default function AboutSection() {
                 { 
                   title: 'Mobile Development', 
                   description: 'React Native, desarrollo multiplataforma',
-                  gradient: 'linear-gradient(135deg, rgba(240,147,251,0.1) 0%, rgba(245,87,108,0.1) 100%)',
-                  iconColor: '#f093fb',
+                  gradient: 'linear-gradient(135deg, rgba(249,199,79,0.1) 0%, rgba(243,114,44,0.1) 100%)',
+                  iconColor: '#F9C74F',
                   icon: 'mobile'
                 }
               ].map((area, index) => {
