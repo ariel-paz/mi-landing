@@ -1,13 +1,12 @@
-import { Container, Typography, Box, Card, Chip, Stack } from '@mui/material';
-import { Work as WorkIcon } from '@mui/icons-material';
+import { Container, Typography, Box, Stack, Chip } from '@mui/material';
+import { 
+  WorkOutline as WorkIcon, 
+  LocationOnOutlined as LocationIcon, 
+  CalendarTodayOutlined as CalendarIcon,
+  CheckCircleOutline as CheckIcon 
+} from '@mui/icons-material';
 import { motion } from 'framer-motion';
-
-interface ExperienceItem {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-}
+import type { ExperienceItem } from '../config';
 
 interface ExperienceSectionProps {
   experience: ExperienceItem[];
@@ -15,201 +14,194 @@ interface ExperienceSectionProps {
 
 export default function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Box sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography 
-            variant="h3" 
-            fontWeight={700} 
-            gutterBottom 
-            sx={{ 
-              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 2
-            }}
+    <Box id="experience" component="section" className="section-padding">
+      <Container maxWidth="lg">
+        {/* Section Header */}
+        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 9 } }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <WorkIcon sx={{ fontSize: '3rem', color: '#00C2A8' }} />
-            Experiencia Profesional
-          </Typography>
-        </Box>
-        
-        <Box sx={{ position: 'relative', maxWidth: 900, mx: 'auto' }}>
-          {/* Timeline line mejorada */}
-          <Box 
-            sx={{ 
-              position: 'absolute', 
-              left: { xs: 20, md: '50%' }, 
-              top: 60, 
-              bottom: 60, 
-              width: { xs: 4, md: 6 }, 
-              background: 'linear-gradient(180deg, #00C2A8 0%, #0B1320 50%, #F9C74F 100%)',
-              transform: { md: 'translateX(-50%)' },
-              borderRadius: 3,
-              zIndex: 1,
-              boxShadow: '0 0 20px rgba(0,194,168,0.3)'
-            }} 
-          />
-          
-          {experience.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
+            <Typography
+              variant="overline"
+              sx={{
+                color: '#34D399',
+                fontWeight: 700,
+                letterSpacing: 2,
+                fontSize: '0.85rem'
+              }}
             >
-              <Box 
-                sx={{ 
-                  position: 'relative', 
-                  mb: { xs: 6, md: 10 },
-                  ml: { xs: 5, md: 0 }
-                }}
-              >
-                {/* Timeline dot mejorado */}
-                <Box 
-                  sx={{ 
-                    position: 'absolute', 
-                    left: { xs: -27, md: '50%' }, 
-                    top: { xs: 30, md: 60 },
-                    transform: { md: 'translateX(-50%)' },
-                    width: { xs: 18, md: 24 }, 
-                    height: { xs: 18, md: 24 }, 
-                      background: `linear-gradient(45deg, ${
-                        index % 2 === 0
-                          ? '#00C2A8, #0B1320'
-                          : '#F9C74F, #F3722C'
-                      })`,
-                    borderRadius: '50%',
-                    border: { xs: '3px solid white', md: '4px solid white' },
-                      boxShadow: `0 0 0 ${index % 2 === 0 ? '4px rgba(0,194,168,0.2)' : '4px rgba(249,199,79,0.2)'}, 0 4px 20px rgba(0,0,0,0.15)`,
-                    zIndex: 3,
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: { xs: 6, md: 8 },
-                      height: { xs: 6, md: 8 },
-                      background: 'white',
-                      borderRadius: '50%'
-                    }
-                  }} 
-                />
-                
-                <Card 
-                  className="card-hover"
-                  sx={{ 
-                    ml: { md: index % 2 === 0 ? 0 : 'auto' },
-                    mr: { md: index % 2 === 0 ? 'auto' : 0 },
-                    width: { xs: '100%', md: '42%' },
-                    minHeight: { xs: 240, md: 320 },
-                    p: { xs: 2.5, md: 4 },
-                    background: index % 2 === 0 
-                      ? 'linear-gradient(135deg, rgba(0,194,168,0.08) 0%, rgba(11,19,32,0.08) 100%)'
-                      : 'linear-gradient(135deg, rgba(249,199,79,0.08) 0%, rgba(243,114,44,0.08) 100%)',
-                    border: `2px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.15)' : 'rgba(249,199,79,0.15)'}`,
-                    borderRadius: 4,
-                    position: 'relative',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: `0 8px 32px ${index % 2 === 0 ? 'rgba(0,194,168,0.1)' : 'rgba(249,199,79,0.1)'}`,
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: `0 16px 48px ${index % 2 === 0 ? 'rgba(0,194,168,0.2)' : 'rgba(249,199,79,0.2)'}`,
-                      border: `2px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.3)' : 'rgba(249,199,79,0.3)'}`
-                    },
-                    '&::before': {
-                      content: '""',
-                      position: 'absolute',
-                      top: { xs: 30, md: 60 },
-                      [index % 2 === 0 ? 'right' : 'left']: { xs: 'auto', md: -15 },
-                      width: 0,
-                      height: 0,
-                      borderTop: '15px solid transparent',
-                      borderBottom: '15px solid transparent',
-                      [index % 2 === 0 ? 'borderRight' : 'borderLeft']: { 
-                        xs: 'none', 
-                        md: `15px solid ${index % 2 === 0 ? 'rgba(0,194,168,0.15)' : 'rgba(249,199,79,0.15)'}` 
-                      },
-                      display: { xs: 'none', md: 'block' }
-                    }
-                  }}
-                >
-                  <Stack spacing={{ xs: 2, md: 3 }} sx={{ height: '100%' }}>
-                    <Box>
-                      <Typography 
-                        variant="h4" 
-                        fontWeight={700} 
-                        sx={{ 
-                          color: index % 2 === 0 ? '#00C2A8' : '#F9C74F',
-                          mb: 1,
-                          fontSize: { xs: '1.3rem', md: '1.8rem' }
-                        }}
-                      >
-                        {exp.title}
-                      </Typography>
-                      <Typography 
-                        variant="h6" 
-                        sx={{ 
-                          color: 'primary.main', 
-                          fontWeight: 600,
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1,
-                          fontSize: { xs: '1rem', md: '1.25rem' }
-                        }}
-                      >
-                        <WorkIcon sx={{ fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
-                        {exp.company}
-                      </Typography>
-                    </Box>
-                    
-                    <Chip 
-                      label={exp.period}
-                      size="medium" 
-                      sx={{ 
-                        alignSelf: 'flex-start',
-                        background: index % 2 === 0 
-                          ? 'linear-gradient(45deg, #00C2A8, #0B1320)'
-                          : 'linear-gradient(45deg, #F9C74F, #F3722C)',
-                        color: 'white',
-                        fontWeight: 700,
-                        fontSize: { xs: '0.8rem', md: '0.9rem' },
-                        height: { xs: 32, md: 36 },
-                        '& .MuiChip-label': { px: { xs: 2, md: 3 } }
-                      }}
-                    />
-                    
-                    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-                      <Typography 
-                        color="text.secondary" 
-                        sx={{ 
-                          lineHeight: 1.6, 
-                          fontSize: { xs: '0.95rem', md: '1.1rem' },
-                          fontWeight: 400
-                        }}
-                      >
-                        {exp.description}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Card>
+              TRAYECTORIA PROFESIONAL
+            </Typography>
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: '2rem', md: '2.8rem' },
+                mt: 1,
+                mb: 2
+              }}
+            >
+              Experiencia en{' '}
+              <Box component="span" className="text-gradient-tech">
+                Producción & FinTech
               </Box>
-            </motion.div>
-          ))}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: '#94A3B8',
+                maxWidth: 680,
+                mx: 'auto',
+                fontSize: '1.05rem',
+                lineHeight: 1.7
+              }}
+            >
+              Impacto comprobado desarrollando arquitecturas de backend seguras y sistemas de inteligencia artificial aplicados.
+            </Typography>
+          </motion.div>
         </Box>
-      </motion.div>
-    </Container>
+
+        {/* Timeline Container */}
+        <Box sx={{ position: 'relative', maxWidth: 960, mx: 'auto', pl: { xs: 3, md: 4 } }}>
+          
+          {/* Vertical Glowing Line */}
+          <Box
+            sx={{
+              position: 'absolute',
+              left: { xs: 12, md: 16 },
+              top: 10,
+              bottom: 20,
+              width: 2,
+              background: 'linear-gradient(180deg, #38BDF8 0%, #818CF8 50%, #34D399 100%)',
+              opacity: 0.6,
+              boxShadow: '0 0 10px rgba(56, 189, 248, 0.4)'
+            }}
+          />
+
+          <Stack spacing={6}>
+            {experience.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 25 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+              >
+                <Box sx={{ position: 'relative', pl: { xs: 3, md: 5 } }}>
+                  
+                  {/* Timeline Dot Indicator */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      left: { xs: -24, md: -28 },
+                      top: 6,
+                      width: 18,
+                      height: 18,
+                      borderRadius: '50%',
+                      bgcolor: '#070A13',
+                      border: '3px solid #38BDF8',
+                      boxShadow: '0 0 12px #38BDF8',
+                      zIndex: 2
+                    }}
+                  />
+
+                  {/* Card Content */}
+                  <Box
+                    className="glass-panel"
+                    sx={{
+                      p: { xs: 3, md: 4.5 },
+                      borderRadius: 4,
+                      borderColor: 'rgba(255, 255, 255, 0.08)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        borderColor: 'rgba(56, 189, 248, 0.3)',
+                        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.4)'
+                      }
+                    }}
+                  >
+                    {/* Header Row: Title & Badge */}
+                    <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { sm: 'center' }, gap: 1.5, mb: 1.5 }}>
+                      <Box>
+                        <Typography variant="h5" fontWeight={800} sx={{ color: '#F8FAFC', fontSize: { xs: '1.25rem', md: '1.5rem' } }}>
+                          {item.title}
+                        </Typography>
+                        <Typography variant="subtitle1" fontWeight={700} sx={{ color: '#38BDF8', display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
+                          <WorkIcon sx={{ fontSize: 18 }} />
+                          {item.company}
+                        </Typography>
+                      </Box>
+
+                      <Chip
+                        label={item.highlightBadge}
+                        size="small"
+                        sx={{
+                          bgcolor: 'rgba(56, 189, 248, 0.1)',
+                          color: '#7DD3FC',
+                          border: '1px solid rgba(56, 189, 248, 0.3)',
+                          fontWeight: 700,
+                          alignSelf: { xs: 'flex-start', sm: 'center' }
+                        }}
+                      />
+                    </Box>
+
+                    {/* Meta info: Period & Location */}
+                    <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} sx={{ mb: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, color: '#94A3B8', fontSize: '0.85rem' }}>
+                        <CalendarIcon sx={{ fontSize: 16, color: '#818CF8' }} />
+                        <span>{item.period}</span>
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8, color: '#94A3B8', fontSize: '0.85rem' }}>
+                        <LocationIcon sx={{ fontSize: 16, color: '#34D399' }} />
+                        <span>{item.location}</span>
+                      </Box>
+                    </Stack>
+
+                    {/* Achievements List */}
+                    <Typography variant="subtitle2" sx={{ color: '#E2E8F0', fontWeight: 700, mb: 1.5, textTransform: 'uppercase', letterSpacing: 0.5, fontSize: '0.75rem' }}>
+                      Principales Logros & Responsabilidades
+                    </Typography>
+                    <Stack spacing={1.5} sx={{ mb: 3 }}>
+                      {item.achievements.map((ach, aIdx) => (
+                        <Box key={aIdx} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                          <CheckIcon sx={{ color: '#34D399', fontSize: 18, mt: 0.3, flexShrink: 0 }} />
+                          <Typography variant="body2" sx={{ color: '#CBD5E1', lineHeight: 1.7 }}>
+                            {ach}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Stack>
+
+                    {/* Tech Stack Tags */}
+                    <Box sx={{ pt: 2, borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                      <Stack direction="row" flexWrap="wrap" gap={1}>
+                        {item.techStack.map((tech) => (
+                          <Chip
+                            key={tech}
+                            label={tech}
+                            size="small"
+                            className="code-pill"
+                            sx={{
+                              bgcolor: 'rgba(255, 255, 255, 0.04)',
+                              color: '#CBD5E1',
+                              border: '1px solid rgba(255, 255, 255, 0.08)'
+                            }}
+                          />
+                        ))}
+                      </Stack>
+                    </Box>
+
+                  </Box>
+                </Box>
+              </motion.div>
+            ))}
+          </Stack>
+
+        </Box>
+      </Container>
+    </Box>
   );
 }

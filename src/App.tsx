@@ -2,278 +2,332 @@ import { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
-  AppBar,
-  Toolbar,
-  IconButton,
-  Tabs,
-  Tab,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  useTheme,
-  useMediaQuery} from '@mui/material';
-import {
-  Menu as MenuIcon,
-  Home as HomeIcon,
-  Person as PersonIcon,
-  Work as WorkIcon,
-  Code as CodeIcon,
-  Email as EmailIcon
+  AppBar, 
+  Toolbar, 
+  IconButton, 
+  Button, 
+  Drawer, 
+  List, 
+  ListItem, 
+  ListItemText, 
+  Container, 
+  Stack, 
+  useTheme, 
+  useMediaQuery 
+} from '@mui/material';
+import { 
+  Menu as MenuIcon, 
+  Close as CloseIcon, 
+  Terminal as TerminalIcon,
+  GitHub as GitHubIcon,
+  LinkedIn as LinkedInIcon
 } from '@mui/icons-material';
 import './App.css';
 import HeroSection from './components/HeroSection';
-// import StatsSection from './components/StatsSection';
 import AboutSection from './components/AboutSection';
+import SkillsSection from './components/SkillsSection';
 import ExperienceSection from './components/ExperienceSection';
 import ProjectsSection from './components/ProjectsSection';
 import ContactSection from './components/ContactSection';
-import TabPanel from './components/TabPanel';
-import { projects, experience, navigationItems } from './config';
+import { projects, experience, navigationItems, personalInfo, cvConfig } from './config';
 import useAnalytics from './hooks/useAnalytics';
 
-// Mapear tabs a nombres de pantalla
-const screenNames = [
-  'home',
-  'about',
-  'experience', 
-  'projects',
-  'contact'
-];
-
 function App() {
-  const [tabValue, setTabValue] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { trackScreenView, trackEvent } = useAnalytics();
+  const { trackEvent } = useAnalytics();
 
-  // Trackear cambios de pantalla
   useEffect(() => {
-    const screenName = screenNames[tabValue];
-    
-    if (screenName) {
-      trackScreenView(screenName);
-      // También trackear como evento personalizado
-      trackEvent('navigation', 'tab_change', screenName);
-    }
-  }, [tabValue, trackScreenView, trackEvent]);
-
-  // Trackear carga inicial de la aplicación
-  useEffect(() => {
-    trackEvent('app', 'page_load', 'portfolio_landing');
+    trackEvent('app', 'page_load', 'portfolio_cloud_ai_landing');
   }, [trackEvent]);
 
-  function getIcon(icon: string) {
-    switch (icon) {
-      case 'home': return <HomeIcon />;
-      case 'person': return <PersonIcon />;
-      case 'work': return <WorkIcon />;
-      case 'code': return <CodeIcon />;
-      case 'email': return <EmailIcon />;
-      default: return undefined;
-    }
-  }
+  // Observe active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = navigationItems.map(item => document.getElementById(item.id));
+      const scrollPos = window.scrollY + 200;
 
-  const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPos) {
+          setActiveSection(navigationItems[i].id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
 
+  const handleNavClick = (id: string) => {
+    trackEvent('navigation', 'nav_click', id);
+    setDrawerOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Navigation Bar */}
+    <Box className="bg-ambient" sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      
+      {/* Glassmorphic Navigation Bar */}
       <AppBar 
         position="fixed" 
         elevation={0} 
-        sx={{ 
-          bgcolor: 'rgba(255,255,255,0.95)', 
-          backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(0,0,0,0.1)',
-          transition: 'all 0.3s ease'
-        }}
+        className="glass-navbar"
       >
-        <Toolbar sx={{ py: 1 }}>
-          <Typography 
-            variant="h5" 
-            component="div" 
-            sx={{ 
-              flexGrow: 1, 
-              color: 'text.primary', 
-              fontWeight: 800,
-              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontSize: '1.5rem'
-            }}
-          >
-            Portfolio
-          </Typography>
-          
-          {!isMobile ? (
-            <Tabs 
-              value={tabValue} 
-              onChange={handleTabChange}
+        <Container maxWidth="lg">
+          <Toolbar disableGutters sx={{ py: 1, display: 'flex', justifyContent: 'space-between' }}>
+            
+            {/* Logo / Brand */}
+            <Box 
+              component="a" 
+              href="#hero" 
+              onClick={(e) => { e.preventDefault(); handleNavClick('hero'); }}
               sx={{ 
-                '& .MuiTab-root': { 
-                  color: 'text.primary',
-                  fontWeight: 600,
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 1.2, 
+                textDecoration: 'none', 
+                cursor: 'pointer' 
+              }}
+            >
+              <Box
+                sx={{
+                  p: 0.8,
                   borderRadius: 2,
-                  margin: '0 4px',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                  bgcolor: 'rgba(0,194,168,0.1)',
-                    transform: 'translateY(-2px)'
-                  },
-                  '&.Mui-selected': {
-                  color: '#00C2A8',
-                  bgcolor: 'rgba(0,194,168,0.1)'
-                  }
-                },
-                '& .MuiTabs-indicator': {
-                background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-                  height: 3,
-                  borderRadius: 2
-                }
-              }}
-            >
-              {navigationItems.map((item) => (
-                <Tab 
-                  key={item.value}
-                  icon={getIcon(item.icon)}
-                  label={item.label} 
-                  iconPosition="start"
-                  sx={{ 
-                    minHeight: 48, 
-                    textTransform: 'none',
-                    fontSize: '0.95rem'
-                  }}
-                />
-              ))}
-            </Tabs>
-          ) : (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{ 
-                color: 'text.primary',
-                bgcolor: 'rgba(0,194,168,0.1)',
-                '&:hover': {
-                  bgcolor: 'rgba(0,194,168,0.2)',
-                  transform: 'scale(1.1)'
-                },
-                transition: 'all 0.3s ease'
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          )}
-        </Toolbar>
-      </AppBar>
+                  background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2))',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <TerminalIcon sx={{ color: '#38BDF8', fontSize: 20 }} />
+              </Box>
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  fontWeight: 800, 
+                  letterSpacing: -0.5,
+                  fontSize: '1.2rem',
+                  color: '#F8FAFC'
+                }}
+              >
+                Ariel Paz<Box component="span" sx={{ color: '#38BDF8' }}>.dev</Box>
+              </Typography>
+            </Box>
 
-      {/* Mobile Drawer */}
-      <Drawer 
-        anchor="right" 
-        open={drawerOpen} 
-        onClose={toggleDrawer}
-        sx={{
-          '& .MuiDrawer-paper': {
-            background: 'linear-gradient(135deg, rgba(0,194,168,0.05) 0%, rgba(11,19,32,0.05) 100%)',
-            backdropFilter: 'blur(20px)'
-          }
-        }}
-      >
-        <Box sx={{ width: 280, pt: 3, px: 2 }}>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              mb: 3, 
-              textAlign: 'center',
-              fontWeight: 700,
-              background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent'
-            }}
-          >
-            Navegación
-          </Typography>
-          <List>
-            {navigationItems.map((item) => (                <ListItem 
-                  key={item.value}
-                  component="button"
-                  onClick={() => {
-                    setTabValue(item.value);
-                    setDrawerOpen(false);
-                    // Trackear navegación móvil
-                    trackEvent('navigation', 'mobile_menu_click', screenNames[item.value]);
-                  }}
-                  sx={{ 
-                    width: '100%', 
-                    textAlign: 'left', 
-                    border: 'none', 
-                    background: 'none', 
-                    p: 2,
+            {/* Desktop Navigation Links */}
+            {!isMobile ? (
+              <Stack direction="row" spacing={1} alignItems="center">
+                {navigationItems.map((item) => {
+                  const isActive = activeSection === item.id;
+                  return (
+                    <Button
+                      key={item.id}
+                      onClick={() => handleNavClick(item.id)}
+                      sx={{
+                        color: isActive ? '#38BDF8' : '#94A3B8',
+                        fontWeight: isActive ? 700 : 500,
+                        fontSize: '0.9rem',
+                        px: 1.8,
+                        py: 0.8,
+                        borderRadius: 2,
+                        position: 'relative',
+                        transition: 'all 0.2s ease',
+                        bgcolor: isActive ? 'rgba(56, 189, 248, 0.08)' : 'transparent',
+                        '&:hover': {
+                          color: '#F8FAFC',
+                          bgcolor: 'rgba(255, 255, 255, 0.05)'
+                        }
+                      }}
+                    >
+                      {item.label}
+                    </Button>
+                  );
+                })}
+
+                <Button
+                  variant="outlined"
+                  size="small"
+                  component="a"
+                  href={cvConfig.downloadUrl}
+                  target="_blank"
+                  download={cvConfig.fileName}
+                  sx={{
+                    ml: 1.5,
+                    borderColor: 'rgba(56, 189, 248, 0.4)',
+                    color: '#38BDF8',
+                    fontSize: '0.85rem',
+                    fontWeight: 700,
                     borderRadius: 2,
-                    mb: 1,
-                    transition: 'all 0.3s ease',
+                    px: 2,
                     '&:hover': {
-                      bgcolor: 'rgba(0,194,168,0.1)',
-                      transform: 'translateX(8px)'
+                      borderColor: '#38BDF8',
+                      bgcolor: 'rgba(56, 189, 248, 0.1)'
                     }
                   }}
                 >
-                <ListItemIcon sx={{ color: '#00C2A8' }}>
-                  {getIcon(item.icon)}
-                </ListItemIcon>
-                <ListItemText 
-                  primary={item.label} 
-                  sx={{ 
-                    '& .MuiListItemText-primary': {
-                      fontWeight: 600
-                    }
-                  }}
-                />
-              </ListItem>
-            ))}
-          </List>
+                  CV PDF
+                </Button>
+              </Stack>
+            ) : (
+              <IconButton
+                aria-label="Abrir menú de navegación"
+                onClick={toggleDrawer}
+                sx={{
+                  color: '#F8FAFC',
+                  bgcolor: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: 2
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+
+          </Toolbar>
+        </Container>
+      </AppBar>
+
+      {/* Mobile Drawer Menu */}
+      <Drawer
+        anchor="right"
+        open={drawerOpen}
+        onClose={toggleDrawer}
+        PaperProps={{
+          sx: {
+            width: 290,
+            bgcolor: '#070A13',
+            borderLeft: '1px solid rgba(255, 255, 255, 0.08)',
+            p: 3
+          }
+        }}
+      >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+          <Typography variant="h6" fontWeight={800} sx={{ color: '#F8FAFC' }}>
+            Navegación
+          </Typography>
+          <IconButton onClick={toggleDrawer} sx={{ color: '#94A3B8' }}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+
+        <List sx={{ p: 0 }}>
+          {navigationItems.map((item) => (
+            <ListItem
+              key={item.id}
+              onClick={() => handleNavClick(item.id)}
+              sx={{
+                borderRadius: 2,
+                mb: 1,
+                cursor: 'pointer',
+                bgcolor: activeSection === item.id ? 'rgba(56, 189, 248, 0.12)' : 'transparent',
+                '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.05)' }
+              }}
+            >
+              <ListItemText
+                primary={item.label}
+                primaryTypographyProps={{
+                  fontWeight: activeSection === item.id ? 700 : 500,
+                  color: activeSection === item.id ? '#38BDF8' : '#CBD5E1'
+                }}
+              />
+            </ListItem>
+          ))}
+        </List>
+
+        <Box sx={{ mt: 4, pt: 3, borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+          <Button
+            variant="contained"
+            fullWidth
+            className="btn-tech-primary"
+            component="a"
+            href={cvConfig.downloadUrl}
+            target="_blank"
+            download={cvConfig.fileName}
+            sx={{ py: 1.4, mb: 2 }}
+          >
+            Descargar CV PDF
+          </Button>
+
+          <Stack direction="row" spacing={1} justifyContent="center">
+            <IconButton href={personalInfo.linkedin} target="_blank" sx={{ color: '#94A3B8' }}>
+              <LinkedInIcon />
+            </IconButton>
+            <IconButton href={personalInfo.github} target="_blank" sx={{ color: '#94A3B8' }}>
+              <GitHubIcon />
+            </IconButton>
+          </Stack>
         </Box>
       </Drawer>
 
-      {/* Main Content */}
-      <Box sx={{ pt: { xs: 7, md: 8 }, '& .MuiBox-root': { padding: 0 } }}>
-        {/* Hero Section - Tab 0 */}
-        <TabPanel value={tabValue} index={0}>
-          <HeroSection onContactClick={() => setTabValue(4)} />
-          {/* <StatsSection /> */}
-        </TabPanel>
-
-        {/* About Section - Tab 1 */}
-        <TabPanel value={tabValue} index={1}>
-          <AboutSection />
-        </TabPanel>
-
-        {/* Experience Section - Tab 2 */}
-        <TabPanel value={tabValue} index={2}>
-          <ExperienceSection experience={experience} />
-        </TabPanel>
-
-        {/* Projects Section - Tab 3 */}
-        <TabPanel value={tabValue} index={3}>
-          <ProjectsSection projects={projects} />
-        </TabPanel>
-
-        {/* Contact Section - Tab 4 */}
-        <TabPanel value={tabValue} index={4}>
-          <ContactSection />
-        </TabPanel>
+      {/* Main Single-Page Content Flow */}
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <HeroSection onContactClick={() => handleNavClick('contact')} />
+        <AboutSection />
+        <SkillsSection />
+        <ExperienceSection experience={experience} />
+        <ProjectsSection projects={projects} />
+        <ContactSection />
       </Box>
+
+      {/* Modern Engineering Footer */}
+      <Box 
+        component="footer" 
+        sx={{ 
+          py: 6, 
+          bgcolor: 'rgba(7, 10, 19, 0.95)', 
+          borderTop: '1px solid rgba(255, 255, 255, 0.06)' 
+        }}
+      >
+        <Container maxWidth="lg">
+          <Stack 
+            direction={{ xs: 'column', sm: 'row' }} 
+            justifyContent="space-between" 
+            alignItems="center" 
+            spacing={3}
+          >
+            <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+              <Typography variant="body2" fontWeight={700} sx={{ color: '#F8FAFC' }}>
+                Ariel Paz • Cloud & AI Software Engineer
+              </Typography>
+              <Typography variant="caption" sx={{ color: '#64748B' }}>
+                Desarrollado con React 19, TypeScript, Material UI & Framer Motion.
+              </Typography>
+            </Box>
+
+            <Stack direction="row" spacing={2}>
+              <IconButton 
+                href={personalInfo.linkedin} 
+                target="_blank" 
+                aria-label="LinkedIn"
+                sx={{ color: '#94A3B8', '&:hover': { color: '#38BDF8' } }}
+              >
+                <LinkedInIcon />
+              </IconButton>
+              <IconButton 
+                href={personalInfo.github} 
+                target="_blank" 
+                aria-label="GitHub"
+                sx={{ color: '#94A3B8', '&:hover': { color: '#38BDF8' } }}
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Stack>
+          </Stack>
+        </Container>
+      </Box>
+
     </Box>
   );
 }

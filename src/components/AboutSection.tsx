@@ -1,247 +1,235 @@
-import { Container, Paper, Typography, Box, Card, Grid } from '@mui/material';
-import { Computer as ComputerIcon, CloudOutlined as CloudIcon, PhoneAndroid as MobileIcon, MenuBook as BookIcon } from '@mui/icons-material';
+import { Container, Typography, Box, Grid, Stack, Card, CardContent } from '@mui/material';
+import { 
+  CloudOutlined as CloudIcon, 
+  AutoAwesomeOutlined as AiIcon, 
+  AccountBalanceOutlined as BankIcon,
+  SchoolOutlined as SchoolIcon,
+  CheckCircleOutline as CheckIcon
+} from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
 export default function AboutSection() {
+  const pillars = [
+    {
+      title: 'APIs & Migración Legacy',
+      subtitle: 'NestJS, Node.js, TypeScript & Java',
+      description: 'Diseño y desarrollo de nuevas APIs REST documentadas con OpenAPI y migración de sistemas legacy en Java hacia microservicios modernos en NestJS, con control de calidad mediante SonarQube.',
+      icon: <BankIcon sx={{ fontSize: 36, color: '#38BDF8' }} />,
+      glowColor: 'rgba(56, 189, 248, 0.15)'
+    },
+    {
+      title: 'Persistencia, Caching & Eventos',
+      subtitle: 'Oracle, MongoDB, Redis & Mensajería',
+      description: 'Operaciones en el área de Acciones, Bonos y Custodia en Santander, integrando bases de datos relacionales y NoSQL, caching en memoria con Redis y procesamiento de eventos asíncronos.',
+      icon: <CheckIcon sx={{ fontSize: 36, color: '#34D399' }} />,
+      glowColor: 'rgba(52, 211, 153, 0.15)'
+    },
+    {
+      title: 'React (BFF), Cloud & Chatbots',
+      subtitle: 'React, GCP, Firebase & Gemini API',
+      description: 'Implementación del patrón BFF en NestJS para alimentar interfaces en React, despliegues en GCP / Firebase y 3 años de trayectoria construyendo chatbots inteligentes con NLP.',
+      icon: <AiIcon sx={{ fontSize: 36, color: '#818CF8' }} />,
+      glowColor: 'rgba(129, 140, 248, 0.15)'
+    }
+  ];
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <Typography 
-          variant="h3" 
-          fontWeight={700} 
-          gutterBottom 
-          textAlign="center"
-          sx={{ 
-            mb: 8,
-            background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}
-        >
-          Sobre Mí
-        </Typography>
-        
-        <Grid container spacing={6}>
-          <Grid size={{ xs: 12 }} component="div">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <Paper 
-                elevation={0} 
-                sx={{ 
-                  p: 5, 
-                  height: '100%',
-                  background: 'linear-gradient(135deg, rgba(0,194,168,0.1) 0%, rgba(11,19,32,0.1) 100%)',
-                  border: '2px solid rgba(0,194,168,0.1)',
-                  borderRadius: 4,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 20px 40px rgba(0,194,168,0.15)',
-                    border: '2px solid rgba(0,194,168,0.2)'
-                  }
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                  <BookIcon sx={{ fontSize: '2rem', color: '#00C2A8' }} />
-                  <Typography variant="h4" fontWeight={700} sx={{ color: '#00C2A8' }}>
-                    Mi Historia
-                  </Typography>
-                </Box>
-                <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
-                  Me egresé de una escuela técnica en programación, estudié Ingeniería en Sistemas en la UTN y actualmente estoy cursando la Licenciatura en Informática en la UNAHUR. Siempre busco formas de seguir creciendo y ampliando mis conocimientos.
-                </Typography>
-                <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
-                  Además de lo académico, realicé cursos en desarrollo Mobile y en el stack MERN (MongoDB, Express, React, Node.js) con JavaScript. Esto me dio una visión más completa del desarrollo web y móvil, permitiéndome trabajar en proyectos muy interesantes.
-                </Typography>
-                <Typography paragraph color="text.secondary" sx={{ lineHeight: 1.8, mb: 3 }}>
-                  Trabajé durante 3 años en Chat-tonic diseñando chatbots y entrenándolos con IA.
-                </Typography>
-                <Typography color="text.secondary" sx={{ lineHeight: 1.8 }}>
-                  Actualmente formo parte de Santander Tecnología en el área de Inversiones (acciones, bonos y plazo fijo), donde utilizo tecnologías como Node.js, Nest y TypeScript para crear soluciones eficientes y escalables.
-                </Typography>
-              </Paper>
-            </motion.div>
-          </Grid>
-          
-          {/* <Grid size={{ xs: 12, md: 6 }} component="div">
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <Paper 
-                elevation={0} 
-                sx={{ 
-                  p: 5, 
-                  height: '100%',
-                  background: 'linear-gradient(135deg, rgba(67,233,123,0.1) 0%, rgba(56,249,215,0.1) 100%)',
-                  border: '2px solid rgba(67,233,123,0.1)',
-                  borderRadius: 4,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: '0 20px 40px rgba(67,233,123,0.15)',
-                    border: '2px solid rgba(67,233,123,0.2)'
-                  }
-                }}
-              >
-                <Typography variant="h4" fontWeight={700} gutterBottom sx={{ mb: 4, color: '#43e97b' }}>
-                  Habilidades Técnicas 🚀
-                </Typography>
-                {skillsToShow.map((skill, index) => (
-                  <motion.div
-                    key={skill.name}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  >
-                    <Box sx={{ mb: 4 }}>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-                        <Typography variant="body1" fontWeight={600}>
-                          {skill.name}
-                        </Typography>
-                        <Chip 
-                          label={`${skill.level}%`} 
-                          size="small" 
-                          sx={{ 
-                            bgcolor: 'primary.main', 
-                            color: 'white',
-                            fontWeight: 600 
-                          }} 
-                        />
-                      </Box>
-                      <LinearProgress 
-                        variant="determinate" 
-                        value={skill.level} 
-                        sx={{ 
-                          height: 10, 
-                          borderRadius: 5,
-                          bgcolor: 'rgba(0,0,0,0.1)',
-                          '& .MuiLinearProgress-bar': {
-                            borderRadius: 5,
-                            background: 'linear-gradient(45deg, #43e97b, #38f9d7)'
-                          }
-                        }}
-                      />
-                    </Box>
-                  </motion.div>
-                ))}
-              </Paper>
-            </motion.div>
-          </Grid> */}
-        </Grid>
-        
-        <Box sx={{ mt: 8 }}>
+    <Box id="about" component="section" className="section-padding">
+      <Container maxWidth="lg">
+        {/* Section Header */}
+        <Box sx={{ textAlign: 'center', mb: { xs: 5, md: 8 } }}>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <Typography 
-              variant="h4" 
-              fontWeight={700} 
-              textAlign="center" 
-              gutterBottom 
-              sx={{ 
-                mb: 6,
-                background: 'linear-gradient(45deg, #00C2A8, #0B1320)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+            <Typography
+              variant="overline"
+              sx={{
+                color: '#38BDF8',
+                fontWeight: 700,
+                letterSpacing: 2,
+                fontSize: '0.85rem'
               }}
             >
-              Áreas de Especialización
+              PERFIL PROFESIONAL
             </Typography>
-            
-            <Grid container spacing={4}>
-              {[
-                { 
-                  title: 'Frontend Development', 
-                  description: 'Vite, TypeScript, Material-UI, Bootstrap, Next.js',
-                  gradient: 'linear-gradient(135deg, rgba(0,194,168,0.1) 0%, rgba(11,19,32,0.1) 100%)',
-                  iconColor: '#00C2A8',
-                  icon: 'computer'
-                },
-                { 
-                  title: 'Backend Development', 
-                  description: 'Node.js, Express, APIs REST, bases de datos',
-                  gradient: 'linear-gradient(135deg, rgba(67,233,123,0.1) 0%, rgba(56,249,215,0.1) 100%)',
-                  iconColor: '#43e97b',
-                  icon: 'cloud'
-                },
-                { 
-                  title: 'Mobile Development', 
-                  description: 'React Native, desarrollo multiplataforma',
-                  gradient: 'linear-gradient(135deg, rgba(249,199,79,0.1) 0%, rgba(243,114,44,0.1) 100%)',
-                  iconColor: '#F9C74F',
-                  icon: 'mobile'
-                }
-              ].map((area, index) => {
-                const renderIcon = () => {
-                  switch (area.icon) {
-                    case 'computer':
-                      return <ComputerIcon sx={{ fontSize: 60, color: area.iconColor }} />;
-                    case 'cloud':
-                      return <CloudIcon sx={{ fontSize: 60, color: area.iconColor }} />;
-                    case 'mobile':
-                      return <MobileIcon sx={{ fontSize: 60, color: area.iconColor }} />;
-                    default:
-                      return <ComputerIcon sx={{ fontSize: 60, color: area.iconColor }} />;
-                  }
-                };
-
-                return (
-                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30, height: '100%' }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 1 + index * 0.2 }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Card 
-                      className="card-hover" 
-                      sx={{ 
-                        textAlign: 'center', 
-                        p: 4, 
-                        height: '100%',
-                        background: area.gradient,
-                        border: '2px solid rgba(0,0,0,0.05)',
-                        borderRadius: 4,
-                        transition: 'all 0.3s ease',
-                        '&:hover': {
-                          transform: 'translateY(-8px)',
-                          boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
-                          border: '2px solid rgba(0,0,0,0.1)'
-                        }
-                      }}
-                    >
-                      <Box sx={{ mb: 3 }}>
-                        {renderIcon()}
-                      </Box>
-                      <Typography variant="h6" fontWeight={700} gutterBottom>
-                        {area.title}
-                      </Typography>
-                      <Typography color="text.secondary" sx={{ lineHeight: 1.6 }}>
-                        {area.description}
-                      </Typography>
-                    </Card>
-                  </motion.div>
-                </Grid>
-                );
-              })}
-            </Grid>
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{
+                fontWeight: 800,
+                fontSize: { xs: '2rem', md: '2.8rem' },
+                mt: 1,
+                mb: 2
+              }}
+            >
+              Transformando Desafíos Complejos en{' '}
+              <Box component="span" className="text-gradient-tech">
+                Sistemas Escalables
+              </Box>
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: '#94A3B8',
+                maxWidth: 720,
+                mx: 'auto',
+                fontSize: '1.05rem',
+                lineHeight: 1.7
+              }}
+            >
+              Ingeniero de software con sólida base técnica, orientado al desarrollo de soluciones Cloud
+              de alto rendimiento y la integración estratégica de modelos de Inteligencia Artificial.
+            </Typography>
           </motion.div>
         </Box>
-      </motion.div>
-    </Container>
+
+        {/* Narrative Box + Education / Background */}
+        <Grid container spacing={4} sx={{ mb: 6 }}>
+          <Grid size={{ xs: 12, md: 7 }}>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ height: '100%' }}
+            >
+              <Box className="glass-panel" sx={{ p: { xs: 3.5, md: 5 }, height: '100%' }}>
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5, color: '#F8FAFC' }}>
+                  Experiencia & Enfoque de Trabajo
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#CBD5E1', lineHeight: 1.8, mb: 2 }}>
+                  Actualmente formo parte de <strong>Santander Tecnología</strong> en el área de <strong>Acciones, Bonos y Custodia</strong>. Mi trabajo principal consiste en el <strong>desarrollo de nuevas APIs</strong>, la <strong>migración de monolitos y servicios legacy en Java hacia microservicios en NestJS, Node.js y TypeScript</strong>, el desarrollo de interfaces en <strong>React</strong> bajo el patrón BFF, y la integración asíncrona mediante colas de mensajería.
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#CBD5E1', lineHeight: 1.8, mb: 3 }}>
+                  En el día a día opero con <strong>Oracle Database, MongoDB y Redis</strong> para optimizar latencias de consulta, asegurando estándares rigurosos de calidad de código mediante análisis estático con <strong>SonarQube</strong>. Además, cuento con 3 años de experiencia previa en <strong>Chat-Tonic</strong> desarrollando chatbots con NLP e integraciones con webhooks, y desarrollo proyectos con <strong>GCP, Firebase y Gemini API</strong>.
+                </Typography>
+                
+                <Stack spacing={1.5}>
+                  {[
+                    'Desarrollo de APIs REST en NestJS, Node.js y mantenimiento de lógica en Java.',
+                    'Migración técnica de sistemas legacy a arquitecturas modernas en NestJS.',
+                    'Patrón BFF en NestJS conectado a interfaces desarrolladas en React.',
+                    'Persistencia y caching con Oracle, MongoDB y Redis.',
+                    'Análisis estático y estándares de cobertura con SonarQube.'
+                  ].map((item, idx) => (
+                    <Box key={idx} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
+                      <CheckIcon sx={{ color: '#38BDF8', fontSize: 20, mt: 0.3 }} />
+                      <Typography variant="body2" sx={{ color: '#E2E8F0', fontWeight: 500 }}>
+                        {item}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Stack>
+              </Box>
+            </motion.div>
+          </Grid>
+
+          {/* Academic Background Card */}
+          <Grid size={{ xs: 12, md: 5 }}>
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              style={{ height: '100%' }}
+            >
+              <Box className="glass-panel" sx={{ p: { xs: 3.5, md: 4.5 }, height: '100%' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+                  <SchoolIcon sx={{ color: '#818CF8', fontSize: 28 }} />
+                  <Typography variant="h5" fontWeight={700} sx={{ color: '#F8FAFC' }}>
+                    Formación Académica
+                  </Typography>
+                </Box>
+
+                <Stack spacing={3}>
+                  <Box sx={{ pl: 2, borderLeft: '2px solid rgba(129, 140, 248, 0.4)' }}>
+                    <Typography variant="subtitle1" fontWeight={700} sx={{ color: '#F8FAFC' }}>
+                      Licenciatura en Informática
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#818CF8', fontWeight: 600 }}>
+                      UNAHUR (Universidad Nacional de Hurlingham)
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#94A3B8' }}>
+                      En curso • Foco en algoritmos, estructuras de datos y arquitectura de sistemas.
+                    </Typography>
+                  </Box>
+
+                  <Box sx={{ pl: 2, borderLeft: '2px solid rgba(56, 189, 248, 0.4)' }}>
+                    <Typography variant="subtitle1" fontWeight={700} sx={{ color: '#F8FAFC' }}>
+                      Ingeniería en Sistemas de Información
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#38BDF8', fontWeight: 600 }}>
+                      UTN (Universidad Tecnológica Nacional)
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#94A3B8' }}>
+                      Trayecto cursado • Fundamentos de ingeniería de software y ciencias exactas.
+                    </Typography>
+                  </Box>
+
+                  <Box sx={{ pl: 2, borderLeft: '2px solid rgba(52, 211, 153, 0.4)' }}>
+                    <Typography variant="subtitle1" fontWeight={700} sx={{ color: '#F8FAFC' }}>
+                      Técnico en Programación
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#34D399', fontWeight: 600 }}>
+                      Educación Técnica Secundaria
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#94A3B8' }}>
+                      Formación inicial rigurosa en lógica, POO y base de datos relacionales.
+                    </Typography>
+                  </Box>
+                </Stack>
+              </Box>
+            </motion.div>
+          </Grid>
+        </Grid>
+
+        {/* 3 Core Value Pillars */}
+        <Grid container spacing={3}>
+          {pillars.map((pillar, index) => (
+            <Grid size={{ xs: 12, md: 4 }} key={index}>
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                whileHover={{ y: -6 }}
+              >
+                <Card
+                  className="glass-panel"
+                  sx={{
+                    height: '100%',
+                    p: 3.5,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    bgcolor: 'rgba(15, 23, 42, 0.75)',
+                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    '&:hover': {
+                      boxShadow: `0 16px 36px ${pillar.glowColor}`
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 0, '&:last-child': { pb: 0 } }}>
+                    <Box sx={{ mb: 2 }}>{pillar.icon}</Box>
+                    <Typography variant="h6" fontWeight={700} sx={{ color: '#F8FAFC', mb: 0.5 }}>
+                      {pillar.title}
+                    </Typography>
+                    <Typography variant="caption" sx={{ color: '#94A3B8', fontWeight: 600, display: 'block', mb: 2 }}>
+                      {pillar.subtitle}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: '#CBD5E1', lineHeight: 1.6 }}>
+                      {pillar.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+
+      </Container>
+    </Box>
   );
 }
