@@ -1,6 +1,5 @@
 import { Container, Typography, Box, Grid, Stack, Card, CardContent } from '@mui/material';
 import { 
-  CloudOutlined as CloudIcon, 
   AutoAwesomeOutlined as AiIcon, 
   AccountBalanceOutlined as BankIcon,
   SchoolOutlined as SchoolIcon,
